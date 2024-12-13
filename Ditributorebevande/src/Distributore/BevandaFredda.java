@@ -67,8 +67,8 @@ public class BevandaFredda {
 				System.out.print("Credito: " + creditoInserito);	
 				do {
 					if(bevande.size() > 3) {
-						System.out.print("\ninserire un codice:\n1)ACQUA\n2)COCACOLA\n3)TE\n4)" + bevande.get(3).nome);
-					} else System.out.print("\ninserire un codice:\n1)ACQUA\n2)COCACOLA\n3)TE");
+						System.out.println("\ninserire un codice:\n1)ACQUA\n2)COCACOLA\n3)TE\n4)" + bevande.get(3).nome);
+					} else System.out.println("\ninserire un codice:\n1)ACQUA\n2)COCACOLA\n3)TE");
 					
 					codiceInserito = scannerCodice.nextInt(); //legge numero intero (variabile per il codice inserito)
 					switch(codiceInserito) {
@@ -93,7 +93,7 @@ public class BevandaFredda {
 										resto = creditoInserito; //restituisce il credito inserito non utilizzato
 										continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
 								}
-					        } else System.out.println("Bevanda non disponibile");
+					        }
 					            
 							} 
 							break;
@@ -119,7 +119,7 @@ public class BevandaFredda {
 										resto = creditoInserito; //restituisce il credito inserito non utilizzato
 										continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
 									}
-					            } else System.out.println("Bevanda non disponibile");
+					            }
 							}
 							break;
 							
@@ -144,7 +144,7 @@ public class BevandaFredda {
 										resto = creditoInserito; //restituisce il credito inserito non utilizzato
 										continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
 									}
-					            } else System.out.println("Bevanda non disponibile");
+					            }
 							}
 							break;
 						case 4: 
@@ -152,7 +152,7 @@ public class BevandaFredda {
 								for(BevandaFredda b : bevande) {
 						            if (b.nome.equals(bevande.get(3).nome)) {
 										if(creditoInserito >= b.prezzo  && b.quantita > 0) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
-											System.out.print("hai scelto il Tè.");
+											System.out.print("hai scelto il " + bevande.get(3).nome);
 											System.out.print("\nBevanda erogata.");
 											resto = creditoInserito - b.prezzo; //resto = credito inserito - prezzo bevanda
 											creditoInserito -= b.prezzo; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
@@ -170,7 +170,7 @@ public class BevandaFredda {
 										}
 						            }
 								}
-							} else System.out.println("Bevanda non disponibile");
+							}
 							break;
 						default:
 							System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");

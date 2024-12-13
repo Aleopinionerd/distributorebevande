@@ -21,6 +21,7 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		Scanner scannerBevanda = new Scanner(System.in);
 		Scanner scannerSceltaAdmin = new Scanner(System.in);
+		Scanner scannerScelta = new Scanner(System.in);
 		
 		boolean admin = false;
 		int continua = 1;
@@ -31,15 +32,25 @@ public class Main {
 		Amministratore a1 = new Amministratore();
 		
 		ArrayList <BevandaFredda> bevande = new ArrayList <BevandaFredda>();
+		ArrayList <BevandeCalde> bevandeCalde = new ArrayList <BevandeCalde>();
 		ArrayList <BevandaFredda> bevandeAggiunte = new ArrayList <BevandaFredda>();
+		ArrayList <BevandeCalde> bevandeCaldeAggiunte = new ArrayList <BevandeCalde>();
 		
-		BevandaFredda acqua = new BevandaFredda("Acqua", 1.0, 1);
-		BevandaFredda cocacola = new BevandaFredda("Cocacola", 2.0, 1);
-		BevandaFredda te = new BevandaFredda("Te", 1.5, 1);
+		BevandaFredda acqua = new BevandaFredda("Acqua", 1.0, 3);
+		BevandaFredda cocacola = new BevandaFredda("Cocacola", 2.0, 3);
+		BevandaFredda te = new BevandaFredda("Te", 1.5, 3);
 		
-		bevandeAggiunte.add(acqua);
-		bevandeAggiunte.add(cocacola);
-		bevandeAggiunte.add(te);
+		BevandeCalde caffe = new BevandeCalde("Caffe", 1.0, 3);
+		BevandeCalde cappuccino = new BevandeCalde("Cappuccino", 2.0, 3);
+		BevandeCalde teCaldo = new BevandeCalde("TeCaldo", 1.5, 3);
+		
+		bevande.add(acqua);
+		bevande.add(cocacola);
+		bevande.add(te);
+		
+		bevandeCalde.add(caffe);
+		bevandeCalde.add(cappuccino);
+		bevandeCalde.add(teCaldo);
 		
 		//INIZIO CODICE		
 				do {
@@ -47,44 +58,90 @@ public class Main {
 					int sceltaBevanda = scannerBevanda.nextInt();
 					switch(sceltaBevanda) {
 					case 1:
-						resto = bevanda2.inserisciCreditoCalda();
+						if(bevandeCaldeAggiunte.size() != 0) {bevandeCalde = bevandeCaldeAggiunte;}
+							bevandeCalde = bevanda2.inserisciCreditoCalda(bevandeCalde); //richiama il metodo inserisciCredito()
 						break;
 						
 					case 2:
-							bevande = bevandeAggiunte;
+						if(bevandeAggiunte.size() != 0) {bevande = bevandeAggiunte;}
 							bevande = bevanda1.inserisciCredito(bevande); //richiama il metodo inserisciCredito()
 						break;
 						
 					case 3:
 						admin = a1.accessoAdmin(); //richiama il metodo accessoAdmin()
 						if(admin) { // se admin è uguale a true
-							System.out.println("1)AGGIUNGI QUANTITA BEVANDA\n2)CAMBIA PREZZO BEVANDA\n3)AGGIUNGI BEVANDA\n4)RIMUOVI BEVANDA\n5)STATISTICHE");
-							int sceltaAdmin = scannerSceltaAdmin.nextInt();
-							switch(sceltaAdmin) {
+							System.out.println("SU QUALI BEVANDE VUOI OPERARE?\n1)BEVANDE FREDDE\n2)BEVANDE CALDE");
+							int sceltaBevandaAdmin = scannerScelta.nextInt();
+							
+							switch(sceltaBevandaAdmin) {
 							case 1:
-								bevandeAggiunte = a1.quantitaBevanda(bevande);
+								System.out.println("1)AGGIUNGI QUANTITA BEVANDA\n2)CAMBIA PREZZO BEVANDA\n3)AGGIUNGI BEVANDA\n4)RIMUOVI BEVANDA\n5)STATISTICHE");
+								int sceltaAdmin = scannerSceltaAdmin.nextInt();
+								switch(sceltaAdmin) {
+								case 1:
+									bevandeAggiunte = a1.quantitaBevanda(bevande);
+									break;
+									
+								case 2:
+									bevandeAggiunte = a1.prezzoBevanda(bevande);
+									break;
+									
+								case 3:
+									bevandeAggiunte = a1.aggiungiBevanda(bevande);
+									for(BevandaFredda b : bevande) {
+										System.out.println(b.getNome() + " ");
+									}
+									break;
+									
+								case 4:
+									int daRimuovere = a1.rimuoviBevanda(bevande);
+									bevandeAggiunte.remove(daRimuovere);
+									break;
+									
+								case 5:
+									a1.Statistiche(bevande);
+									break;
+									
+								default:
+									System.out.println("NUMERO ERRATO");
+									break;
+								}									
 								break;
 								
 							case 2:
-								bevandeAggiunte = a1.prezzoBevanda(bevande);
-								break;
+								System.out.println("1)AGGIUNGI QUANTITA BEVANDA\n2)CAMBIA PREZZO BEVANDA\n3)AGGIUNGI BEVANDA\n4)RIMUOVI BEVANDA\n5)STATISTICHE");
+								int sceltaAdmin2 = scannerSceltaAdmin.nextInt();
+								switch(sceltaAdmin2) {
+								case 1:
+									bevandeCaldeAggiunte = a1.quantitaBevandaCalda(bevandeCalde);
+									break;
+									
+								case 2:
+									bevandeCaldeAggiunte = a1.prezzoBevandaCalda(bevandeCalde);
+									break;
+									
+								case 3:
+									bevandeCaldeAggiunte = a1.aggiungiBevandaCalda(bevandeCalde);
+									break;
+									
+								case 4:
+									int daRimuovere = a1.rimuoviBevandaCalda(bevandeCalde);
+									bevandeCaldeAggiunte.remove(daRimuovere);
+									break;
+									
+								case 5:
+									a1.StatisticheCalda(bevandeCalde);
+									break;
+									
+								default:
+									System.out.println("NUMERO ERRATO");
+									break;
+								}	
 								
-							case 3:
-								a1.aggiungiBevanda(bevande);
 								break;
-								
-							case 4:
-								a1.rimuoviBevanda(bevande);
-								break;
-								
-							case 5:
-								a1.Statistiche(bevande);
-								break;
-								
-							default:
-								System.out.println("NUMERO ERRATO");
-								break;
-							}	
+							
+							}
+							
 						}
 						break;
 					default:
