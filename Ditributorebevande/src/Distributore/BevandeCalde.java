@@ -1,101 +1,132 @@
 package Distributore;
+
 import java.util.Scanner;
+
 public class BevandeCalde {
-	// Classe per le bevande calde
-	    // Attributi
-	    protected String nome;
-	    protected double prezzo;
-	    protected int quantita;
-	    
-	    // Costruttore
-	    public BevandeCalde(String nome, double prezzo, int quantita) {
-	        this.nome = nome;
-	        this.prezzo = prezzo;
-	        this.quantita = quantita;
-	    }
 
-	    // Metodo per effettuare la vendita della bevanda
-	    public boolean effettuaVendita(double credito) {
-	        if (credito >= prezzo && quantita > 0) {
-	            quantita--; // Riduce la quantità disponibile della bevanda
-	            return true; // Vendita riuscita
-	        } else {
-	            return false; // Vendita non riuscita
-	        }
-	    }
+    protected String nome;
+    protected double prezzo;
+    protected int quantita;
+    protected double totaleIncassato;
 
-	    // Metodo per stampare i dettagli della bevanda calda
-	    public void stampaDettagli() {
-	        System.out.println("\nBevanda: " + nome);
-	        System.out.println("Prezzo: €" + prezzo);
-	        System.out.println("Quantità disponibile: " + quantita);
-	        System.out.println("Con bicchiere e bastoncino inclusi.");
-	    }
+    // Costruttore
+    public BevandeCalde(String nome, double prezzo, int quantita) {
+        this.nome = nome;
+        this.prezzo = prezzo;
+        this.quantita = quantita;
+        this.totaleIncassato = 0;
+    }
 
-	    public static void main(String[] args) {
-	        // Creazione delle bevande calde
-	        BevandeCalde caffè = new BevandeCalde("Caffè", 2.00, 5);
-	        BevandeCalde cappuccino = new BevandeCalde("Cappuccino", 2.50, 3);
-	        BevandeCalde te = new BevandeCalde("Tè", 1.80, 4);
+    public BevandeCalde() {}
 
-	        // Scanner per l'inserimento del credito
-	        Scanner scannerCredito = new Scanner(System.in);
-	        double creditoInserito;
+    // Metodo per effettuare la vendita della bevanda
+    public boolean effettuaVendita(double credito) {
+        if (credito >= prezzo && quantita > 0) {
+            quantita--; // Riduce la quantità disponibile della bevanda
+            totaleIncassato += prezzo; // Aggiunge l'importo alla vendita totale
+            return true; // Vendita riuscita
+        } else {
+            return false; // Vendita non riuscita
+        }
+    }
 
-	        System.out.print("\nInserisci credito (tra 1 e 10 euro): ");
-	        creditoInserito = scannerCredito.nextDouble();
+    // Metodo per stampare i dettagli della bevanda calda
+    public void stampaDettagli() {
+        System.out.println("\nBevanda: " + nome);
+        System.out.println("Prezzo: €" + prezzo);
+        System.out.println("Quantità disponibile: " + quantita);
+        System.out.println("Con bicchiere e bastoncino inclusi.");
+    }
 
-	        if (creditoInserito >= 1 && creditoInserito <= 10) {
-	            System.out.println("Credito inserito: €" + creditoInserito);
-	            Scanner scannerCodice = new Scanner(System.in);
-	            int scelta;
-	            int continua = 1; // Variabile per continuare a scegliere le bevande
+    // Metodo per inserire il credito e scegliere una bevanda
+    public void inserisciCreditoCalda() {
+        Scanner scannerCodice = new Scanner(System.in);
+        Scanner scannerCredito = new Scanner(System.in);
+        Scanner scannerContinua = new Scanner(System.in);
 
-	            do {
-	                System.out.println("\nSeleziona una bevanda: ");
-	                System.out.println("1. " + caffè.nome + " (€" + caffè.prezzo + ")");
-	                System.out.println("2. " + cappuccino.nome + " (€" + cappuccino.prezzo + ")");
-	                System.out.println("3. " + te.nome + " (€" + te.prezzo + ")");
-	                System.out.print("Inserisci il numero corrispondente: ");
-	                scelta = scannerCodice.nextInt();
+        double creditoInserito;
+        int scelta = 0, continua = 0;
+        double resto = 0;
 
-	                BevandeCalde bevandaScelta = null;
+        // Crea le bevande disponibili
+        BevandeCalde caffe = new BevandeCalde("Caffè", 1.00, 3);
+        BevandeCalde cappuccino = new BevandeCalde("Cappuccino", 2.00, 3);
+        BevandeCalde teCaldo = new BevandeCalde("Tè caldo", 1.50, 3);
 
-	                // Selezione della bevanda in base alla scelta
-	                switch (scelta) {
-	                    case 1:
-	                        bevandaScelta = caffè;
-	                        break;
-	                    case 2:
-	                        bevandaScelta = cappuccino;
-	                        break;
-	                    case 3:
-	                        bevandaScelta = te;
-	                        break;
-	                    default:
-	                        System.out.println("Scelta non valida!");
-	                        continue;
-	                }
+        // Array di bevande
+        BevandeCalde[] bevande = {caffe, cappuccino, teCaldo};
 
-	                bevandaScelta.stampaDettagli();
+        System.out.println("\nInserire credito [1-10]:");
+        creditoInserito = scannerCredito.nextDouble();
 
-	                // Verifica se il credito è sufficiente per la bevanda scelta
-	                if (bevandaScelta.effettuaVendita(creditoInserito)) {
-	                    creditoInserito -= bevandaScelta.prezzo;
-	                    System.out.println("Bevanda erogata con successo!");
-	                    System.out.println("Credito residuo: €" + creditoInserito);
-	                } else {
-	                    System.out.println("Credito non sufficiente o bevanda esaurita.");
-	                }
+        if (creditoInserito >= 1 && creditoInserito <= 10) {
+            do {
+                System.out.println("\nSeleziona una bevanda: ");
+                System.out.println("1. " + caffe.nome + " (€" + caffe.prezzo + ")");
+                System.out.println("2. " + cappuccino.nome + " (€" + cappuccino.prezzo + ")");
+                System.out.println("3. " + teCaldo.nome + " (€" + teCaldo.prezzo + ")");
+                System.out.print("Inserisci il numero corrispondente: ");
+                scelta = scannerCodice.nextInt();
 
-	                System.out.print("\nVuoi acquistare un'altra bevanda? (1 per continuare, 0 per uscire): ");
-	                continua = scannerCodice.nextInt();
+                // Selezione della bevanda in base alla scelta
+                switch (scelta) {
+                    case 1:
+                        if (creditoInserito >= caffe.prezzo && caffe.quantita > 0) {
+                            caffe.effettuaVendita(creditoInserito);
+                            resto = creditoInserito - caffe.prezzo;
+                            System.out.println("Hai scelto il Caffè.");
+                            caffe.stampaDettagli();
+                            System.out.println("Resto: " + resto + "€");
+                            creditoInserito -= caffe.prezzo;
+                            System.out.print("\n" + caffe.quantita + " rimanenti...");
+                        } else {
+                            System.out.println("Credito non sufficiente o bevanda non disponibile.");
+                            resto = creditoInserito;
+                        }
+                        break;
 
-	            } while (continua == 1); // Continua finché l'utente vuole acquistare altre bevande
+                    case 2:
+                        if (creditoInserito >= cappuccino.prezzo && cappuccino.quantita > 0) {
+                            cappuccino.effettuaVendita(creditoInserito);
+                            resto = creditoInserito - cappuccino.prezzo;
+                            System.out.println("Hai scelto il Cappuccino.");
+                            cappuccino.stampaDettagli();
+                            System.out.println("Resto: " + resto + "€");
+                            creditoInserito -= cappuccino.prezzo;
+                            System.out.print("\n" + cappuccino.quantita + " rimanenti...");
+                        } else {
+                            System.out.println("Credito non sufficiente o bevanda non disponibile.");
+                            resto = creditoInserito;
+                        }
+                        break;
 
-	        } else {
-	            System.out.println("Credito non valido. Inserisci un importo tra 1 e 10 euro.");
-	        }
-	    }
-	}
+                    case 3:
+                        if (creditoInserito >= teCaldo.prezzo && teCaldo.quantita > 0) {
+                            teCaldo.effettuaVendita(creditoInserito);
+                            resto = creditoInserito - teCaldo.prezzo;
+                            System.out.println("Hai scelto il Tè caldo.");
+                            teCaldo.stampaDettagli();
+                            System.out.println("Resto: " + resto + "€");
+                            creditoInserito -= teCaldo.prezzo;
+                            System.out.print("\n" + teCaldo.quantita + " rimanenti...");
+                        } else {
+                            System.out.println("Credito non sufficiente o bevanda non disponibile.");
+                            resto = creditoInserito;
+                        }
+                        break;
 
+                    default:
+                        System.out.println("Scelta non valida.");
+                        break;
+                }
+
+                // Chiedi se l'utente vuole continuare
+                System.out.print("\nVuoi continuare? (0 per continuare, 1 per uscire): ");
+                continua = scannerContinua.nextInt();
+            } while (continua == 0); // Ripete finché l'utente vuole continuare
+        } else {
+            System.out.println("Credito non valido.");
+        }
+        System.out.println("Resto finale: " + resto + "€");
+    }
+}
