@@ -20,6 +20,8 @@ public class Main {
 		//VARIABILI
 		Scanner scanner = new Scanner(System.in);
 		Scanner scannerBevanda = new Scanner(System.in);
+		Scanner scannerSceltaAdmin = new Scanner(System.in);
+		
 		boolean admin = false;
 		int continua = 1;
 		double resto = 0;
@@ -56,12 +58,35 @@ public class Main {
 					case 3:
 						admin = a1.accessoAdmin(); //richiama il metodo accessoAdmin()
 						if(admin) { // se admin è uguale a true
-							bevandeAggiunte = a1.quantitaBevanda(bevande);
-							bevandeAggiunte = a1.prezzoBevanda(bevande);
-							a1.Statistiche(bevande);
-						}				
-					break;
-						
+							System.out.println("1)AGGIUNGI QUANTITA BEVANDA\n2)CAMBIA PREZZO BEVANDA\n3)AGGIUNGI BEVANDA\n4)RIMUOVI BEVANDA\n5)STATISTICHE");
+							int sceltaAdmin = scannerSceltaAdmin.nextInt();
+							switch(sceltaAdmin) {
+							case 1:
+								bevandeAggiunte = a1.quantitaBevanda(bevande);
+								break;
+								
+							case 2:
+								bevandeAggiunte = a1.prezzoBevanda(bevande);
+								break;
+								
+							case 3:
+								a1.aggiungiBevanda(bevande);
+								break;
+								
+							case 4:
+								a1.rimuoviBevanda(bevande);
+								break;
+								
+							case 5:
+								a1.Statistiche(bevande);
+								break;
+								
+							default:
+								System.out.println("NUMERO ERRATO");
+								break;
+							}	
+						}
+						break;
 					default:
 						System.out.println("NUMERO ERRATO");
 					}

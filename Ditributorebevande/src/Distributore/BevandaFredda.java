@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 public class BevandaFredda {
 	//ATTRIBUTI
-	protected String nome;
-	protected double prezzo;
-	protected int quantita = 3;
-	protected double totaleIncassato;
+	private String nome;
+	private double prezzo;
+	private int quantita = 3;
+	private double totaleIncassato;
 
 	//COSTRUTTORE
 	public BevandaFredda() {
@@ -21,12 +21,28 @@ public class BevandaFredda {
 		this.quantita = quantita;
 	}
 	
+	public String getNome() {
+		return nome;
+	}
+	
 	public int getQuantita() {
-		return this.quantita;
+		return quantita;
+	}
+	
+	public void setQuantita(int quantita) {
+		this.quantita = quantita;
 	}
 	
 	public double getPrezzo() {
-		return this.prezzo;
+		return prezzo;
+	}
+	
+	public void setPrezzo(double prezzo) {
+		this.prezzo = prezzo;
+	}
+	
+	public double getTotaleIncassato() {
+		return this.totaleIncassato;
 	}
 	
 	public ArrayList <BevandaFredda> inserisciCredito(ArrayList <BevandaFredda> bevande) {
@@ -50,7 +66,10 @@ public class BevandaFredda {
 			if(creditoInserito >= 1 && creditoInserito <= 10) { //se il credito inserito è compreso tra 1 euro e 10 euro esegue il blocco
 				System.out.print("Credito: " + creditoInserito);	
 				do {
-					System.out.print("\ninserire un codice:\n1)ACQUA\n2)COCACOLA\n3)TE");
+					if(bevande.size() > 3) {
+						System.out.print("\ninserire un codice:\n1)ACQUA\n2)COCACOLA\n3)TE\n4)" + bevande.get(3).nome);
+					} else System.out.print("\ninserire un codice:\n1)ACQUA\n2)COCACOLA\n3)TE");
+					
 					codiceInserito = scannerCodice.nextInt(); //legge numero intero (variabile per il codice inserito)
 					switch(codiceInserito) {
 						case 1:
@@ -74,7 +93,7 @@ public class BevandaFredda {
 										resto = creditoInserito; //restituisce il credito inserito non utilizzato
 										continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
 								}
-					        }
+					        } else System.out.println("Bevanda non disponibile");
 					            
 							} 
 							break;
@@ -100,7 +119,7 @@ public class BevandaFredda {
 										resto = creditoInserito; //restituisce il credito inserito non utilizzato
 										continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
 									}
-					            }
+					            } else System.out.println("Bevanda non disponibile");
 							}
 							break;
 							
@@ -125,10 +144,34 @@ public class BevandaFredda {
 										resto = creditoInserito; //restituisce il credito inserito non utilizzato
 										continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
 									}
-					            }
+					            } else System.out.println("Bevanda non disponibile");
 							}
 							break;
-							
+						case 4: 
+							if(bevande.size() > 3) {
+								for(BevandaFredda b : bevande) {
+						            if (b.nome.equals(bevande.get(3).nome)) {
+										if(creditoInserito >= b.prezzo  && b.quantita > 0) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
+											System.out.print("hai scelto il Tè.");
+											System.out.print("\nBevanda erogata.");
+											resto = creditoInserito - b.prezzo; //resto = credito inserito - prezzo bevanda
+											creditoInserito -= b.prezzo; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
+											b.quantita--; //decremento quantita bevanda
+											System.out.print("\n" + b.quantita + " rimenenti...");
+											System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
+											continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
+											bevandaOttenuta++;
+											System.out.println("Resto: " + resto + "€"); //stampa resto
+											b.totaleIncassato += b.prezzo;
+										} else {
+											System.out.print("Credito non sufficiente o bevanda non disponibile.");
+											resto = creditoInserito; //restituisce il credito inserito non utilizzato
+											continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
+										}
+						            }
+								}
+							} else System.out.println("Bevanda non disponibile");
+							break;
 						default:
 							System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 							continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
