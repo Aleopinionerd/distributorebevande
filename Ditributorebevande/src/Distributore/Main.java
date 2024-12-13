@@ -1,21 +1,43 @@
 package Distributore;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
+	/* New feature: gestione operatore. L'operatore può, inserendo un codice riservato, accedere ad un menu di selezione con cui poter fare le seguenti operazioni:
+
+	   aggiungere un nuovo prodotto
+	   rimuovere un prodotto
+	   cambiare la quantità disponibile di un prodotto
+	   cambiare il prezzo di un prodotto
+	   Inoltre, l'operatore potrà vedere:
+	
+	   totale incassato dal distributore
+	   elenco dei prodotti acquistati con relative quantità (es: caffè 10, ginseng 18, coca 4) */
+	
 	public static void main(String[] args) {
 		//VARIABILI
 		Scanner scanner = new Scanner(System.in);
-		Scanner scannerCode = new Scanner(System.in);
 		Scanner scannerBevanda = new Scanner(System.in);
 		boolean admin = false;
-		
 		int continua = 1;
 		double resto = 0;
 		
 		BevandaFredda bevanda1 = new BevandaFredda(); //oggetto bevanda instanza di BevandaFredda
 		BevandeCalde bevanda2 = new BevandeCalde(); //oggetto bevanda instanza di BevandeCalde
+		Amministratore a1 = new Amministratore();
+		
+		ArrayList <BevandaFredda> bevande = new ArrayList <BevandaFredda>();
+		ArrayList <BevandaFredda> bevandeAggiunte = new ArrayList <BevandaFredda>();
+		
+		BevandaFredda acqua = new BevandaFredda("Acqua", 1.0, 1);
+		BevandaFredda cocacola = new BevandaFredda("Cocacola", 2.0, 1);
+		BevandaFredda te = new BevandaFredda("Te", 1.5, 1);
+		
+		bevandeAggiunte.add(acqua);
+		bevandeAggiunte.add(cocacola);
+		bevandeAggiunte.add(te);
 		
 		//INIZIO CODICE		
 				do {
@@ -27,17 +49,16 @@ public class Main {
 						break;
 						
 					case 2:
-						resto = bevanda1.inserisciCredito(); //richiama il metodo inserisciCredito()
+							bevande = bevandeAggiunte;
+							bevande = bevanda1.inserisciCredito(bevande); //richiama il metodo inserisciCredito()
 						break;
 						
 					case 3:
-						admin = accessoAdmin(); //richiama il metodo accessoAdmin()
+						admin = a1.accessoAdmin(); //richiama il metodo accessoAdmin()
 						if(admin) { // se admin è uguale a true
-							System.out.println("AREA AMMINISTRATORE");
-							
-							
-							
-							System.exit(0);
+							bevandeAggiunte = a1.quantitaBevanda(bevande);
+							bevandeAggiunte = a1.prezzoBevanda(bevande);
+							a1.Statistiche(bevande);
 						}				
 					break;
 						
@@ -45,12 +66,10 @@ public class Main {
 						System.out.println("NUMERO ERRATO");
 					}
 					
-					System.out.print("\nINSERIRE 0 PER INSERIRE ALTRO CREDITO: ");
+					System.out.print("\nINSERIRE 0 PER TORNARE AL MENU: ");
 					continua = scanner.nextInt();
-					System.out.println("Resto: " + resto + "€"); //stampa resto a fine ciclo
 				} while (continua == 0); //ripete finché "continua" è uguale a 0
 		scanner.close();
-		scannerCode.close();
 		
 		
 		
@@ -59,14 +78,4 @@ public class Main {
 	
 	//METODI
 
-	static boolean accessoAdmin() {
-		Scanner scannerCode = new Scanner(System.in);
-		int code = 4396, codice = 0; //code (codice amministratore) e codice (codice inserito dall'utente)
-		boolean amministratore = false;
-		
-		codice = scannerCode.nextInt(); //legge un numero intero (codice inserito dall'utente)	
-
-		if(codice == code) amministratore = true; //se i codici corrispondono, amministratore = true
-		return amministratore;
-	}
 }
