@@ -26,7 +26,7 @@ public class Amministratore {
 		
 		System.out.println("AREA AMMINISTRATORE");
 		if(bevande.size() > 3) {
-		System.out.print("\nQuale bevanda vuoi aggiungere?\n1)ACQUA\n2)COCACOLA\n3)TE\n4)" + bevande.get(3).getNome());
+		System.out.print("\nQuale bevanda vuoi aggiungere?\n1)ACQUA\n2)COCACOLA\n3)TE\n4)" + bevande.get(3).getNome()); //stampa se ci sono più di 3 bevande
 			} else System.out.println("Quale bevanda vuoi aggiungere?\n1)Acqua\n2)Cocacola\n3)Te\n4)Non disponibile");
 		
 		int scelta = scannerScelta.nextInt();
@@ -36,9 +36,9 @@ public class Amministratore {
 	        	for (BevandaFredda b : bevande) {
 		            if (b.getNome().equals("Acqua")) {
 		                System.out.print("Quante bottiglie di acqua vuoi aggiungere? ");
-		                int qt = scannerQt.nextInt();
-		                qt += b.getQuantita();
-		                b.setQuantita(qt);
+		                int qt = scannerQt.nextInt(); //legge numero intero per quantita da aggiungere
+		                qt += b.getQuantita(); //somma la quantita inserita a quella esistente
+		                b.setQuantita(qt); //imposta la quanita aggiornata
 		                System.out.println("QUANTITA ACQUA: " + b.getQuantita());
 		            }
 	        	}
@@ -48,9 +48,9 @@ public class Amministratore {
 	        	for (BevandaFredda b : bevande) {
 		            if (b.getNome().equals("Cocacola")) {
 		                System.out.print("Quante lattine di Coca-Cola vuoi aggiungere? ");
-		                int qt = scannerQt.nextInt();
-		                qt += b.getQuantita();
-		                b.setQuantita(qt);
+		                int qt = scannerQt.nextInt(); //legge numero intero per quantita da aggiungere
+		                qt += b.getQuantita(); //somma la quantita inserita a quella esistente
+		                b.setQuantita(qt); //imposta la quanita aggiornata
 		                System.out.println("QUANTITA COCA COLA: " + b.getQuantita());
 		            }
 	        	}
@@ -60,9 +60,9 @@ public class Amministratore {
 	        	for (BevandaFredda b : bevande) {
 		            if (b.getNome().equals("Te")) {
 		                System.out.print("Quante bottiglie di Tè vuoi aggiungere? ");
-		                int qt = scannerQt.nextInt();
-		                qt += b.getQuantita();
-		                b.setQuantita(qt);
+		                int qt = scannerQt.nextInt(); //legge numero intero per quantita da aggiungere
+		                qt += b.getQuantita(); //somma la quantita inserita a quella esistente
+		                b.setQuantita(qt); //imposta la quanita aggiornata
 		                System.out.println("QUANTITA TE: " + b.getQuantita());
 		            }
 	        	}
@@ -72,9 +72,9 @@ public class Amministratore {
 	        	if(bevande.size() > 3) {
 	        		for (int i = 0; i < bevande.size(); i++) {
 			            if (bevande.get(3).getNome().equals(bevande.get(i).getNome())) {
-			            	 int qt = scannerQt.nextInt();
-			            	 qt += bevande.get(3).getQuantita();
-				             bevande.get(3).setQuantita(qt);
+			            	 int qt = scannerQt.nextInt(); //legge numero intero per quantita da aggiungere
+			            	 qt += bevande.get(3).getQuantita(); //somma la quantita inserita a quella esistente
+				             bevande.get(3).setQuantita(qt); //imposta la quanita aggiornata
 				             System.out.println("QUANTITA: " + bevande.get(3).getQuantita());
 			            }
 		        	}
@@ -96,7 +96,7 @@ public class Amministratore {
 		System.out.println("AREA AMMINISTRATORE");
 		
 		if(bevande.size() > 3) {
-			System.out.println("Di quale bevanda vuoi cambiare il prezzo?\n1)Acqua\n2)Cocacola\n3)Te\n4)" + bevande.get(3).getNome());
+			System.out.println("Di quale bevanda vuoi cambiare il prezzo?\n1)Acqua\n2)Cocacola\n3)Te\n4)" + bevande.get(3).getNome()); //stampa se ci sono più di 3 bevande
 		} else System.out.println("Di quale bevanda vuoi cambiare il prezzo?\n1)Acqua\n2)Cocacola\n3)Te\n4)Non disponibile");
 		int scelta = scannerScelta.nextInt();
 
@@ -105,8 +105,8 @@ public class Amministratore {
 	        	for (BevandaFredda b : bevande) {
 		            if (b.getNome().equals("Acqua")) {
 		                System.out.print("Che prezzo vuoi inserire per l'acqua? ");
-		                int prezzo = scannerQt.nextInt();
-		                b.setPrezzo(prezzo);
+		                int prezzo = scannerQt.nextInt(); //legge numero intero per prezzo da inserire
+		                b.setPrezzo(prezzo); //imposta il prezzo aggiornato
 		                System.out.println("PREZZO ACQUA: " + b.getPrezzo());
 		            }
 	        	}
@@ -116,8 +116,8 @@ public class Amministratore {
 	        	for (BevandaFredda b : bevande) {
 		            if (b.getNome().equals("Cocacola")) {
 		                System.out.print("Che prezzo vuoi inserire per la Coca-cola? ");
-		                int prezzo = scannerQt.nextInt();
-		                b.setPrezzo(prezzo);
+		                int prezzo = scannerQt.nextInt(); //legge numero intero per prezzo da inserire
+		                b.setPrezzo(prezzo); //imposta il prezzo aggiornato
 		                System.out.println("PREZZO COCA COLA: " + b.getPrezzo());
 		            }
 	        	}
@@ -127,8 +127,8 @@ public class Amministratore {
 	        	for (BevandaFredda b : bevande) {
 		            if (b.getNome().equals("Te")) {
 		                System.out.print("Che prezzo vuoi inserire per il Te? ");
-		                int prezzo = scannerQt.nextInt();
-		                b.setPrezzo(prezzo);
+		                int prezzo = scannerQt.nextInt(); //legge numero intero per prezzo da inserire
+		                b.setPrezzo(prezzo); //imposta il prezzo aggiornato
 		                System.out.println("PREZZO TE: " + b.getPrezzo());
 		            }
 	        	}
@@ -138,8 +138,8 @@ public class Amministratore {
 		        if(bevande.size() > 3) {
 		        	for (int i = 0; i < bevande.size(); i++) {
 			            if (bevande.get(3).getNome().equals(bevande.get(i).getNome())) {
-			            	int prezzo = scannerQt.nextInt();
-			                bevande.get(3).setPrezzo(prezzo);
+			            	int prezzo = scannerQt.nextInt(); //legge numero intero per prezzo da inserire
+			                bevande.get(3).setPrezzo(prezzo); //imposta il prezzo aggiornato
 			                System.out.println("PREZZO " + bevande.get(3).getNome() +  ": " + bevande.get(3).getPrezzo());
 			            }
 		        	}
@@ -158,16 +158,16 @@ public class Amministratore {
 			Scanner scanner = new Scanner(System.in);
 			
 			System.out.print("Inserire il nome della bevanda da aggiungere:");
-			String nome = scanner.nextLine();
+			String nome = scanner.nextLine(); //legge stringa per nome bevanda
 			
 			System.out.print("Inserire il prezzo della bevanda da aggiungere:");
-			double prezzo = scanner.nextDouble();
+			double prezzo = scanner.nextDouble(); //legge double per prezzo bevanda
 			
 			System.out.print("Inserire la quantità della bevanda da aggiungere:");
-			int quantita = scanner.nextInt();
+			int quantita = scanner.nextInt(); //legge intero per prezzo bevanda
 			
-			BevandaFredda bevanda = new BevandaFredda(nome, prezzo, quantita);
-			bevande.add(bevanda);
+			BevandaFredda bevanda = new BevandaFredda(nome, prezzo, quantita); //crea oggetto bevanda
+			bevande.add(bevanda); //aggiunge oggetto bevanda alla lista
 			
 			System.out.println(nome + " AGGIUNTO CON SUCCESSO!");
 		}
@@ -181,7 +181,7 @@ public class Amministratore {
 		
 		if (scelta == 0) {
 			System.out.println(bevande.get(3).getNome() + " RIMOSSA");
-			bevande.remove(3);
+			bevande.remove(3); //rimuove la bevanda nell'ultima posizione
 		} else {
 			System.out.println("RIMOZIONE FALLITA");
 		}
@@ -190,8 +190,8 @@ public class Amministratore {
 	
 	public void Statistiche(ArrayList <BevandaFredda> bevande) {
 		for (BevandaFredda b : bevande) {
-                System.out.print("\n[Bevanda: " + b.getNome() + ", prezzo: " + b.getPrezzo() + ", quantita: " + b.getQuantita() + "]");
-        		System.out.println("\tTotale incassato: "+ b.getTotaleIncassato() + "€");
+                System.out.print("\n[Bevanda: " + b.getNome() + ", prezzo: " + b.getPrezzo() + ", quantita: " + b.getQuantita() + "]"); //stampa statistiche bevande fredde
+        		System.out.println("\tTotale incassato: "+ b.getTotaleIncassato() + "€"); //stampa totale incassato dalle bevande fredde
     	}
 	}
 		
@@ -214,9 +214,9 @@ public class Amministratore {
 		        	for (BevandeCalde b : bevande) {
 			            if (b.getNome().equals("Caffe")) {
 			                System.out.print("Quante cialde di caffè vuoi aggiungere? ");
-			                int qt = scannerQt.nextInt();
-			                qt += b.getQuantita();
-			                b.setQuantita(qt);
+			                int qt = scannerQt.nextInt(); //legge numero intero per quantita da aggiungere
+			                qt += b.getQuantita(); //somma la quantita inserita a quella esistente
+			                b.setQuantita(qt); //imposta quantita aggiornata
 			                System.out.println("QUANTITA CIALDE CAFFE': " + b.getQuantita());
 			            }
 		        	}
@@ -226,9 +226,9 @@ public class Amministratore {
 		        	for (BevandeCalde b : bevande) {
 			            if (b.getNome().equals("Cappuccino")) {
 			                System.out.print("Quante cialde di cappuccino vuoi aggiungere? ");
-			                int qt = scannerQt.nextInt();
-			                qt += b.getQuantita();
-			                b.setQuantita(qt);
+			                int qt = scannerQt.nextInt(); //legge numero intero per quantita da aggiungere
+			                qt += b.getQuantita(); //somma la quantita inserita a quella esistente
+			                b.setQuantita(qt); //imposta quantita aggiornata
 			                System.out.println("QUANTITA CIALDE CAPPUCCINO: " + b.getQuantita());
 			            }
 		        	}
@@ -238,9 +238,9 @@ public class Amministratore {
 		        	for (BevandeCalde b : bevande) {
 			            if (b.getNome().equals("TeCaldo")) {
 			                System.out.print("Quante bustine di Tè caldo vuoi aggiungere? ");
-			                int qt = scannerQt.nextInt();
-			                qt += b.getQuantita();
-			                b.setQuantita(qt);
+			                int qt = scannerQt.nextInt(); //legge numero intero per quantita da aggiungere
+			                qt += b.getQuantita(); //somma la quantita inserita a quella esistente
+			                b.setQuantita(qt); //imposta quantita aggiornata
 			                System.out.println("QUANTITA BUSTINE TE CALDO: " + b.getQuantita());
 			            }
 		        	}
@@ -250,9 +250,9 @@ public class Amministratore {
 		        	if(bevande.size() > 3) {
 		        		for (int i = 0; i < bevande.size(); i++) {
 				            if (bevande.get(3).getNome().equals(bevande.get(i).getNome())) {
-				            	 int qt = scannerQt.nextInt();
-				            	 qt += bevande.get(3).getQuantita();
-					             bevande.get(3).setQuantita(qt);
+				            	 int qt = scannerQt.nextInt(); //legge numero intero per quantita da aggiungere
+				            	 qt += bevande.get(3).getQuantita(); //somma la quantita inserita a quella esistente
+					             bevande.get(3).setQuantita(qt); //imposta quantita aggiornata
 					             System.out.println("QUANTITA: " + bevande.get(3).getQuantita());
 				            }
 			        	}
@@ -283,8 +283,8 @@ public class Amministratore {
 		        	for (BevandeCalde b : bevande) {
 			            if (b.getNome().equals("Caffe")) {
 			                System.out.print("Che prezzo vuoi inserire per il caffè? ");
-			                int prezzo = scannerQt.nextInt();
-			                b.setPrezzo(prezzo);
+			                int prezzo = scannerQt.nextInt(); //legge intero per prezzo bevanda
+			                b.setPrezzo(prezzo); //imposta il nuovo prezzo bevanda
 			                System.out.println("PREZZO CAFFE': " + b.getPrezzo());
 			            }
 		        	}
@@ -294,8 +294,8 @@ public class Amministratore {
 		        	for (BevandeCalde b : bevande) {
 			            if (b.getNome().equals("Cappuccino")) {
 			                System.out.print("Che prezzo vuoi inserire per il Cappuccino? ");
-			                int prezzo = scannerQt.nextInt();
-			                b.setPrezzo(prezzo);
+			                int prezzo = scannerQt.nextInt(); //legge intero per prezzo bevanda
+			                b.setPrezzo(prezzo); //imposta il nuovo prezzo bevanda
 			                System.out.println("PREZZO CAPPUCCINO: " + b.getPrezzo());
 			            }
 		        	}
@@ -305,8 +305,8 @@ public class Amministratore {
 		        	for (BevandeCalde b : bevande) {
 			            if (b.getNome().equals("TeCaldo")) {
 			                System.out.print("Che prezzo vuoi inserire per il Te caldo? ");
-			                int prezzo = scannerQt.nextInt();
-			                b.setPrezzo(prezzo);
+			                int prezzo = scannerQt.nextInt(); //legge intero per prezzo bevanda
+			                b.setPrezzo(prezzo); //imposta il nuovo prezzo bevanda
 			                System.out.println("PREZZO TE CALDO: " + b.getPrezzo());
 			            }
 		        	}
@@ -316,8 +316,8 @@ public class Amministratore {
 			        if(bevande.size() > 3) {
 			        	for (int i = 0; i < bevande.size(); i++) {
 				            if (bevande.get(3).getNome().equals(bevande.get(i).getNome())) {
-				            	int prezzo = scannerQt.nextInt();
-				                bevande.get(3).setPrezzo(prezzo);
+				            	int prezzo = scannerQt.nextInt(); //legge intero per prezzo bevanda
+				                bevande.get(3).setPrezzo(prezzo); //imposta il nuovo prezzo bevanda
 				                System.out.println("PREZZO " + bevande.get(3).getNome() +  ": " + bevande.get(3).getPrezzo());
 				            }
 			        	}
@@ -344,8 +344,8 @@ public class Amministratore {
 				System.out.print("Inserire la quantità della bevanda da aggiungere:");
 				int quantita = scanner.nextInt();
 				
-				BevandeCalde bevanda = new BevandeCalde(nome, prezzo, quantita);
-				bevande.add(bevanda);	
+				BevandeCalde bevanda = new BevandeCalde(nome, prezzo, quantita); //crea oggetto bevanda
+				bevande.add(bevanda); //aggiunge oggetto bevanda alla lista
 				
 				System.out.println(nome + " AGGIUNTO CON SUCCESSO!");
 			}
@@ -359,7 +359,7 @@ public class Amministratore {
 			
 			if (scelta == 0) {
 				System.out.println(bevande.get(3).getNome() + " RIMOSSA");
-				bevande.remove(3);
+				bevande.remove(3); //rimuove la bevanda nell'ultima posizione
 			} else {
 				System.out.println("RIMOZIONE FALLITA");
 			}
@@ -368,8 +368,8 @@ public class Amministratore {
 		
 		public void StatisticheCalda(ArrayList <BevandeCalde> bevande) {
 			for (BevandeCalde b : bevande) {
-	                System.out.print("\n[Bevanda: " + b.getNome() + ", prezzo: " + b.getPrezzo() + ", quantita: " + b.getQuantita() + "]");
-	        		System.out.println("\tTotale incassato: "+ b.getTotaleIncassato() + "€");
+	                System.out.print("\n[Bevanda: " + b.getNome() + ", prezzo: " + b.getPrezzo() + ", quantita: " + b.getQuantita() + "]"); //stampa statistiche bevande calde
+	        		System.out.println("\tTotale incassato: "+ b.getTotaleIncassato() + "€"); //stampa incasso totale bevande calde
 	    	}
 		}
 }
