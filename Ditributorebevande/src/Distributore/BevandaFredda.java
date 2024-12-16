@@ -66,9 +66,13 @@ public class BevandaFredda {
 			if(creditoInserito >= 1 && creditoInserito <= 10) { //se il credito inserito è compreso tra 1 euro e 10 euro esegue il blocco
 				System.out.print("Credito: " + creditoInserito);	
 				do {
+					System.out.println("\nSeleziona una bevanda: ");
+					System.out.println("1. Acqua (€1)");
+					System.out.println("2. Coca-Cola (€2)");
+					System.out.println("3. Tè (€1.50)");
 					if(bevande.size() > 3) {
-						System.out.println("\ninserire un codice:\n1)ACQUA\n2)COCACOLA\n3)TE\n4)" + bevande.get(3).nome);
-					} else System.out.println("\ninserire un codice:\n1)ACQUA\n2)COCACOLA\n3)TE");
+						System.out.println("4. "+ bevande.get(3).nome + " (€" + bevande.get(3).prezzo + ")");
+					} else System.out.println("4. Non disponibile");
 					
 					codiceInserito = scannerCodice.nextInt(); //legge numero intero (variabile per il codice inserito)
 					switch(codiceInserito) {
@@ -88,6 +92,7 @@ public class BevandaFredda {
 										bevandaOttenuta++;
 										System.out.println("Resto: " + resto + "€"); //stampa resto
 										b.totaleIncassato += b.prezzo;
+										break;
 									}else {
 										System.out.print("Credito non sufficiente o bevanda non disponibile.");
 										resto = creditoInserito; //restituisce il credito inserito non utilizzato
@@ -114,6 +119,7 @@ public class BevandaFredda {
 										bevandaOttenuta++;
 										System.out.println("Resto: " + resto + "€"); //stampa resto
 										b.totaleIncassato += b.prezzo;
+										break;
 									} else {
 										System.out.print("Credito non sufficiente o bevanda non disponibile.");
 										resto = creditoInserito; //restituisce il credito inserito non utilizzato
@@ -139,6 +145,7 @@ public class BevandaFredda {
 										bevandaOttenuta++;
 										System.out.println("Resto: " + resto + "€"); //stampa resto
 										b.totaleIncassato += b.prezzo;
+										break;
 									} else {
 										System.out.print("Credito non sufficiente o bevanda non disponibile.");
 										resto = creditoInserito; //restituisce il credito inserito non utilizzato
@@ -163,6 +170,7 @@ public class BevandaFredda {
 											bevandaOttenuta++;
 											System.out.println("Resto: " + resto + "€"); //stampa resto
 											b.totaleIncassato += b.prezzo;
+											break;
 										} else {
 											System.out.print("Credito non sufficiente o bevanda non disponibile.");
 											resto = creditoInserito; //restituisce il credito inserito non utilizzato
