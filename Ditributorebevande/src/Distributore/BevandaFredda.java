@@ -8,9 +8,10 @@ public class BevandaFredda {
 	private String nome;
 	private double prezzo;
 	private int quantita = 3;
+	private int bevandaOttenuta;
 	private double totaleIncassato;
 
-	//COSTRUTTORE
+	//COSTRUTTORI
 	public BevandaFredda() {
 		
 	}
@@ -21,6 +22,7 @@ public class BevandaFredda {
 		this.quantita = quantita;
 	}
 	
+	//METODI GET E SET
 	public String getNome() {
 		return nome;
 	}
@@ -45,10 +47,9 @@ public class BevandaFredda {
 		return this.totaleIncassato;
 	}
 	
+	//ALTRI METODI
 	public ArrayList <BevandaFredda> inserisciCredito(ArrayList <BevandaFredda> bevande) {
-		//VARIABILI
-		int bevandaOttenuta = 0;
-		
+		//VARIABILI		
 		double resto = 0;
 		
 		Scanner scannerContinua = new Scanner(System.in);
@@ -62,7 +63,7 @@ public class BevandaFredda {
 		
 		//INIZIO ISTRUZIONI
 		System.out.print("\ninserire credito [1-10]: ");
-		creditoInserito = scannerCredito.nextDouble(); //legge numero intero (variabile per il credito inserito)
+		creditoInserito = scannerCredito.nextDouble(); //legge numero double (variabile per il credito inserito)
 			if(creditoInserito >= 1 && creditoInserito <= 10) { //se il credito inserito è compreso tra 1 euro e 10 euro esegue il blocco
 				System.out.print("Credito: " + creditoInserito);	
 				do {
@@ -71,13 +72,12 @@ public class BevandaFredda {
 					System.out.println("2. Coca-Cola (€2)");
 					System.out.println("3. Tè (€1.50)");
 					if(bevande.size() > 3) {
-						System.out.println("4. "+ bevande.get(3).nome + " (€" + bevande.get(3).prezzo + ")");
-					} else System.out.println("4. Non disponibile");
+						System.out.println("4. "+ bevande.get(3).nome + " (€" + bevande.get(3).prezzo + ")"); //stampa se ci sono più di tre bevande
+					} else System.out.println("4. Non disponibile"); //altrimenti non disponibile
 					
 					codiceInserito = scannerCodice.nextInt(); //legge numero intero (variabile per il codice inserito)
 					switch(codiceInserito) {
 						case 1:
-							//BevandaFredda b = new BevandaFredda("Acqua", 1.00, b.getQuantita());
 							for(BevandaFredda b : bevande) {
 					            if (b.nome.equals("Acqua")) {
 									if(creditoInserito >= b.prezzo && b.quantita > 0) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
@@ -89,9 +89,9 @@ public class BevandaFredda {
 										System.out.print("\n" + b.quantita + " rimenenti...");
 										System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 										continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
-										bevandaOttenuta++;
+										bevandaOttenuta++; //conteggio bevande ottenute
 										System.out.println("Resto: " + resto + "€"); //stampa resto
-										b.totaleIncassato += b.prezzo;
+										b.totaleIncassato += b.prezzo; //totale incassato incrementato del prezzo della bevanda scelta
 										break;
 									}else {
 										System.out.print("Credito non sufficiente o bevanda non disponibile.");
@@ -104,7 +104,6 @@ public class BevandaFredda {
 							break;
 							
 						case 2:
-							//b = new BevandaFredda("Cocacola", 2.00, b.getQuantita());
 							for(BevandaFredda b : bevande) {
 					            if (b.nome.equals("Cocacola")) {
 									if(creditoInserito >= b.prezzo  && b.quantita > 0) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
@@ -116,9 +115,9 @@ public class BevandaFredda {
 										System.out.print("\n" + b.quantita + " rimenenti...");
 										System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 										continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
-										bevandaOttenuta++;
+										bevandaOttenuta++; //conteggio bevande ottenute
 										System.out.println("Resto: " + resto + "€"); //stampa resto
-										b.totaleIncassato += b.prezzo;
+										b.totaleIncassato += b.prezzo; //totale incassato incrementato del prezzo della bevanda scelta
 										break;
 									} else {
 										System.out.print("Credito non sufficiente o bevanda non disponibile.");
@@ -130,7 +129,6 @@ public class BevandaFredda {
 							break;
 							
 						case 3:
-							//b = new BevandaFredda("Te", 1.50, b.getQuantita());
 							for(BevandaFredda b : bevande) {
 					            if (b.nome.equals("Te")) {
 									if(creditoInserito >= b.prezzo  && b.quantita > 0) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
@@ -142,9 +140,9 @@ public class BevandaFredda {
 										System.out.print("\n" + b.quantita + " rimenenti...");
 										System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 										continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
-										bevandaOttenuta++;
+										bevandaOttenuta++; //conteggio bevande ottenute
 										System.out.println("Resto: " + resto + "€"); //stampa resto
-										b.totaleIncassato += b.prezzo;
+										b.totaleIncassato += b.prezzo; //totale incassato incrementato del prezzo della bevanda scelta
 										break;
 									} else {
 										System.out.print("Credito non sufficiente o bevanda non disponibile.");
@@ -167,9 +165,9 @@ public class BevandaFredda {
 											System.out.print("\n" + b.quantita + " rimenenti...");
 											System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 											continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
-											bevandaOttenuta++;
+											bevandaOttenuta++; //conteggio bevande ottenute
 											System.out.println("Resto: " + resto + "€"); //stampa resto
-											b.totaleIncassato += b.prezzo;
+											b.totaleIncassato += b.prezzo; //totale incassato incrementato del prezzo della bevanda scelta
 											break;
 										} else {
 											System.out.print("Credito non sufficiente o bevanda non disponibile.");
