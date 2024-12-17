@@ -11,6 +11,7 @@ public class BevandeCalde {
 	private double totaleIncassato;
 	private int numeroBicchieri = 10; //numero di bicchieri per tutte le bevande
 	private boolean esaurita = false;
+	private int bevandaOttenuta;
 
 	public double getTotaleIncassato() { //public per usare get e set 
 		return totaleIncassato;
@@ -44,6 +45,10 @@ public class BevandeCalde {
 		this.prezzo = prezzo;
 	}
 	
+	public int getBevandaOttenuta() {
+		return bevandaOttenuta;
+	}
+	
 	public boolean getEsaurita () {
 		return esaurita;
 		
@@ -65,6 +70,7 @@ public class BevandeCalde {
 	public boolean effettuaVendita(double credito, int qt) {
 		if (credito >= prezzo && quantita > 0) {
 			quantita = (quantita - qt);
+			bevandaOttenuta += qt; //conteggio bevande ottenute
 			if (quantita == 0) {
 				esaurita = true;
 			}
@@ -102,11 +108,11 @@ public class BevandeCalde {
 		if (creditoInserito >= 1 && creditoInserito <= 10) { 
 			do {
 				System.out.println("\nSeleziona una bevanda: "); //stampa del menu informativo per l'utente
-				System.out.println("1. Caffè (€1)");
-				System.out.println("2. Cappuccino (€2)");
-				System.out.println("3. Tè Caldo (€1.50)");
+				System.out.println(String.format("1. %s (€ %.2f)", bevande.get(0).nome, bevande.get(0).prezzo));
+				System.out.println(String.format("2. %s (€ %.2f)", bevande.get(1).nome, bevande.get(1).prezzo));
+				System.out.println(String.format("3. %s (€ %.2f)", bevande.get(2).nome, bevande.get(2).prezzo));
 				if(bevande.size() > 3) {
-					System.out.println("4. "+ bevande.get(3).nome + " (€" + bevande.get(3).prezzo + ")");
+					System.out.println(String.format("4. %s (€ %.2f)", bevande.get(3).nome, bevande.get(3).prezzo));
 				} else System.out.println("4. Non disponibile");
 				System.out.print("Inserisci il numero corrispondente: ");
 				scelta = scannerCodice.nextInt(); //l
@@ -126,7 +132,7 @@ public class BevandeCalde {
 					for (BevandeCalde b : bevande) {
 						if (b.nome.equalsIgnoreCase("Caffe")) {
 						if(numeroBicchieri > 0) {
-							if (creditoInserito >= b.prezzo && b.quantita >= quantitaDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantita  = 0
+							if (creditoInserito >= (b.prezzo * quantitaDaAcquistare) && b.quantita >= quantitaDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantita  = 0
 									numeroBicchieri-= quantitaDaAcquistare;
 									b.effettuaVendita(creditoInserito, quantitaDaAcquistare);
 									resto = creditoInserito - (b.prezzo * quantitaDaAcquistare);
@@ -134,7 +140,7 @@ public class BevandeCalde {
 											System.out.println("Quanto zucchero vuoi (0-5)");
 											int zucchero = scannerZucchero.nextInt();
 											if(zucchero > 0 && zucchero <=5) {
-												System.out.println("Hai scelto: " + quantitaDaAcquistare  +"di" + bevande.get(scelta - 1).getNome()  + " con " + zucchero + " zollette di zucchero");
+												System.out.println("Hai scelto: " + quantitaDaAcquistare  +" di " + bevande.get(scelta - 1).getNome()  + " con " + zucchero + " zollette di zucchero");
 												break;
 											} else if (zucchero == 0){
 												System.out.println("Non hai selezionato lo zucchero");
@@ -161,7 +167,6 @@ public class BevandeCalde {
 								
 							}
 						}
-						System.out.println ("Grazie per aver usato il nostro distributore. Buona giornata");
 					}
 					break;
 
@@ -169,7 +174,7 @@ public class BevandeCalde {
 					for (BevandeCalde b : bevande) {
 						if (b.nome.equalsIgnoreCase("Cappuccino")) {
 							if(numeroBicchieri > 0) {
-								if (creditoInserito >= b.prezzo && b.quantita >= quantitaDaAcquistare) { ///se creditoInserito è maggiore del prezzo e la quantita  = 0
+								if (creditoInserito >= (b.prezzo * quantitaDaAcquistare) && b.quantita >= quantitaDaAcquistare) { ///se creditoInserito è maggiore del prezzo e la quantita  = 0
 									numeroBicchieri-= quantitaDaAcquistare;
 									b.effettuaVendita(creditoInserito, quantitaDaAcquistare);
 									resto = creditoInserito - (b.prezzo * quantitaDaAcquistare);
@@ -177,7 +182,7 @@ public class BevandeCalde {
 										System.out.println("Quanto zucchero vuoi (0-5)");
 										int zucchero = scannerZucchero.nextInt();
 										if(zucchero > 0 && zucchero <=5) {
-											System.out.println("Hai scelto: " + quantitaDaAcquistare  +"di" + bevande.get(scelta - 1).getNome()  + " con " + zucchero + " zollette di zucchero");
+											System.out.println("Hai scelto: " + quantitaDaAcquistare  +" di " + bevande.get(scelta - 1).getNome()  + " con " + zucchero + " zollette di zucchero");
 											break;
 										} else if (zucchero == 0){ //controllo sulla quantita di zucchero che vuole l'utente se non lo vuole sarà amaro, quindi impostato a 0
 											System.out.println("Non hai selezionato lo zucchero");
@@ -202,7 +207,6 @@ public class BevandeCalde {
 								System.out.println("Bicchieri esauriti. Scegli una bevanda fredda.");
 							}
 						}
-						System.out.println ("Grazie per aver usato il nostro distributore. Buona giornata");
 					}
 					break;
 
@@ -210,7 +214,7 @@ public class BevandeCalde {
 					for (BevandeCalde b : bevande) {
 						if (b.nome.equalsIgnoreCase("TeCaldo")) {
 							if(numeroBicchieri > 0) {
-								if (creditoInserito >= b.prezzo && b.quantita >= quantitaDaAcquistare) { ///se creditoInserito è maggiore del prezzo e la quantita  = 0
+								if (creditoInserito >= (b.prezzo * quantitaDaAcquistare) && b.quantita >= quantitaDaAcquistare) { ///se creditoInserito è maggiore del prezzo e la quantita  = 0
 									numeroBicchieri-= quantitaDaAcquistare;
 									b.effettuaVendita(creditoInserito, quantitaDaAcquistare);
 									resto = creditoInserito - (b.prezzo * quantitaDaAcquistare);
@@ -218,7 +222,7 @@ public class BevandeCalde {
 										System.out.println("Quanto zucchero vuoi (0-5)"); //inserire da 0 a cinque zollette, meno rimanda all'else altrimenti se supera continua finché non mette massimo 5
 										int zucchero = scannerZucchero.nextInt();
 										if(zucchero > 0 && zucchero <=5) {
-											System.out.println("Hai scelto: " + quantitaDaAcquistare  +"di" + bevande.get(scelta - 1).getNome()  + " con " + zucchero + " zollette di zucchero"); //aggiunta della quantità acquistata dell'utente
+											System.out.println("Hai scelto: " + quantitaDaAcquistare  +" di " + bevande.get(scelta - 1).getNome()  + " con " + zucchero + " zollette di zucchero"); //aggiunta della quantità acquistata dell'utente
 											break;
 										} else if (zucchero == 0){
 											System.out.println("Non hai selezionato lo zucchero");//avviso per l'utente che non è stato inserito alcuna zolletta
@@ -245,7 +249,6 @@ public class BevandeCalde {
 								System.out.println("Bicchieri esauriti. Scegli una bevanda fredda.");
 							}
 						}
-						System.out.println ("Grazie per aver usato il nostro distributore. Buona giornata");
 					}
 					break;
 				case 4:
@@ -253,7 +256,7 @@ public class BevandeCalde {
 						for (BevandeCalde b : bevande) {
 							if (b.nome.equals(bevande.get(3).nome)) {
 								if(numeroBicchieri > 0) {
-									if (creditoInserito >= b.prezzo && b.quantita >= quantitaDaAcquistare) { // se creditoInserito è maggiore												// del prezzo e la quantità è
+									if (creditoInserito >= (b.prezzo * quantitaDaAcquistare) && b.quantita >= quantitaDaAcquistare) { // se creditoInserito è maggiore												// del prezzo e la quantità è
 																						// maggiore do 0 esegue il
 																						// blocco di codice
 										numeroBicchieri-= quantitaDaAcquistare;
@@ -291,7 +294,6 @@ public class BevandeCalde {
 								}
 							}
 						}
-						System.out.println ("Grazie per aver usato il nostro distributore. Buona giornata");
 					}
 					break;
 				default:
@@ -299,6 +301,7 @@ public class BevandeCalde {
 					continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
 					break;
 				}
+				System.out.println ("Grazie per aver usato il nostro distributore. Buona giornata");
 			} while (continua == 0); // Ripete finché l'utente vuole continuare
 		}else {
 			resto = creditoInserito; //restituisce il credito inserito non utilizzato

@@ -48,6 +48,10 @@ public class BevandaFredda {
 		return this.totaleIncassato;
 	}
 	
+	public int getBevandaOttenuta() {
+		return bevandaOttenuta;
+	}
+	
 	public boolean getEsaurita () {
 		return esaurita;
 		
@@ -59,6 +63,7 @@ public class BevandaFredda {
 		if (credito >= prezzo && quantita > 0) {
 			quantita = (quantita - qt);
 			totaleIncassato += (prezzo * qt);
+			bevandaOttenuta += qt; //conteggio bevande ottenute
 			if (quantita == 0) {
 			esaurita = true;
 			}// Aggiunge l'importo alla vendita totale
@@ -91,23 +96,23 @@ public class BevandaFredda {
 				System.out.print("Credito: " + creditoInserito);	
 				do {
 					System.out.println("\nSeleziona una bevanda: ");
-					System.out.println("1. Acqua: (€1)");
-					System.out.println("2. Coca-Cola (€2)");
-					System.out.println("3. Tè (€1.50)");
+					System.out.println(String.format("1. %s (€ %.2f)", bevande.get(0).nome, bevande.get(0).prezzo));
+					System.out.println(String.format("2. %s (€ %.2f)", bevande.get(1).nome, bevande.get(1).prezzo));
+					System.out.println(String.format("3. %s (€ %.2f)", bevande.get(2).nome, bevande.get(2).prezzo));
 					if(bevande.size() > 3) {
-						System.out.println("4. "+ bevande.get(3).nome + " (€" + bevande.get(3).prezzo + ")"); //stampa se ci sono più di tre bevande
+						System.out.println(String.format("4. %s (€ %.2f)", bevande.get(3).nome, bevande.get(3).prezzo)); //stampa se ci sono più di tre bevande
 					} else System.out.println("4. Non disponibile"); //altrimenti non disponibile
 					
 					codiceInserito = scannerCodice.nextInt(); //legge numero intero (variabile per il codice inserito)
 					
-					System.out.println("Quante bottiglie di acqua vuoi acquistare?");
+					System.out.println("Quante bottiglie vuoi acquistare?");
 					qtDaAcquistare = scannerQuantita.nextInt();		
 					
 					switch(codiceInserito) {
 						case 1:
 								for(BevandaFredda b : bevande) {
 						           if (b.nome.equals("Acqua")) {
-						        	   	if(creditoInserito >= b.prezzo && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
+						        	   	if(creditoInserito >= (b.prezzo * qtDaAcquistare) && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
 							        	   	System.out.print("hai scelto l'acqua.");
 											System.out.print("\nBevanda erogata.");
 											b.effettuaVendita(creditoInserito, qtDaAcquistare);
@@ -116,7 +121,6 @@ public class BevandaFredda {
 											System.out.print("\n" + b.quantita + " rimenenti...");
 											System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 											continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
-											bevandaOttenuta *= qtDaAcquistare; //conteggio bevande ottenute
 											System.out.println("Resto: " + resto + "€"); //stampa resto
 											break;
 										}else {
@@ -131,7 +135,7 @@ public class BevandaFredda {
 						case 2:
 							for(BevandaFredda b : bevande) {
 					            if (b.nome.equals("Cocacola")) {
-									if(creditoInserito >= b.prezzo  && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
+									if(creditoInserito >= (b.prezzo * qtDaAcquistare)  && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
 										System.out.print("hai scelto la Coca-Cola.");
 										System.out.print("\nBevanda erogata.");
 										b.effettuaVendita(creditoInserito, qtDaAcquistare);
@@ -156,7 +160,7 @@ public class BevandaFredda {
 						case 3:	
 							for(BevandaFredda b : bevande) {
 					            if (b.nome.equals("Te")) {
-									if(creditoInserito >= b.prezzo  && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
+									if(creditoInserito >= (b.prezzo * qtDaAcquistare)  && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
 										System.out.print("hai scelto il Tè.");
 										System.out.print("\nBevanda erogata.");
 										b.effettuaVendita(creditoInserito, qtDaAcquistare);
@@ -180,7 +184,7 @@ public class BevandaFredda {
 							if(bevande.size() > 3) {
 								for(BevandaFredda b : bevande) {
 						            if (b.nome.equals(bevande.get(3).nome)) {
-										if(creditoInserito >= b.prezzo  && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
+										if(creditoInserito >= (b.prezzo * qtDaAcquistare)  && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
 											System.out.print("hai scelto il " + bevande.get(3).nome);
 											System.out.print("\nBevanda erogata.");
 											b.effettuaVendita(creditoInserito, qtDaAcquistare);
@@ -199,12 +203,17 @@ public class BevandaFredda {
 										}
 						            }
 								}
+							} else {
+								System.out.print("Credito non sufficiente o bevanda non disponibile.");
+								resto = creditoInserito; //restituisce il credito inserito non utilizzato
+								continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
 							}
 							break;
 						default:
 							System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 							continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
 					}
+					System.out.println ("Grazie per aver usato il nostro distributore. Buona giornata");
 				} while (continua == 0); //ripete finche "continua" è uguale a 0
 			} else {
 				resto = creditoInserito; //restituisce il credito inserito non utilizzato

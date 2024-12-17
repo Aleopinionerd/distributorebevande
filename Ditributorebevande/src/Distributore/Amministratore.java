@@ -167,7 +167,7 @@ public class Amministratore {
 		return bevande;
 	}
 	public void PrezzoModificato (ArrayList <BevandaFredda> bevande) {
-		System.out.println ("Di quanto vuoi aumentare il prezzo delle tue bevande?");
+		System.out.println ("Di quanto vuoi modificare il prezzo delle tue bevande?");
 		Scanner scanner = new Scanner (System.in);
 		double percentuale = scanner.nextDouble();
 		for (int i = 0; i < bevande.size(); i++) {
@@ -220,7 +220,8 @@ public class Amministratore {
 		for (BevandaFredda b : bevande) {
 			System.out.print("\n[Bevanda: " + b.getNome() + ", prezzo: " + b.getPrezzo() + ", quantita: "
 					+ b.getQuantita() + "]"); // stampa statistiche bevande fredde
-			System.out.println("\tTotale incassato: " + b.getTotaleIncassato() + "€"); // stampa totale incassato dalle
+			System.out.print("\tTotale incassato: " + b.getTotaleIncassato() + "€"); // stampa totale incassato dalle bevande
+			System.out.println("\tTotale bevande ottenute: " + b.getBevandaOttenuta()); // stampa numero totale bevande ottenute
 		}
 			BevandaEsaurita = BevandaFredda(bevande);
 			for (int i = 0; i < BevandaEsaurita.size(); i++) {
@@ -381,7 +382,7 @@ public class Amministratore {
 	}
 	
 	public void PrezziModificati (ArrayList <BevandeCalde> bevande) {
-		System.out.println ("Di quanto vuoi aumentare il prezzo delle tue bevande?");
+		System.out.println ("Di quanto vuoi modificare il prezzo delle tue bevande?");
 		Scanner scanner = new Scanner (System.in);
 		double percentuale = scanner.nextDouble();
 		for (int i = 0; i < bevande.size(); i++) {
@@ -436,7 +437,8 @@ public class Amministratore {
 		for (BevandeCalde b : bevande) {
 			System.out.print("\n[Bevanda: " + b.getNome() + ", prezzo: " + b.getPrezzo() + ", quantita: "
 					+ b.getQuantita() + "]"); // stampa statistiche bevande calde
-			System.out.println("\tTotale incassato: " + b.getTotaleIncassato() + "€"); // stampa incasso totale bevande
+			System.out.print("\tTotale incassato: " + b.getTotaleIncassato() + "€"); // stampa incasso totale bevande
+			System.out.println("\tTotale bevande ottenute: " + b.getBevandaOttenuta()); // stampa numero totale bevande ottenute
 		}
 		BevandeEsaurite = BevandeEsaurite(bevande);
 		for (int i = 0; i < BevandeEsaurite.size(); i++) {

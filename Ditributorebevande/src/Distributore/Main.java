@@ -81,7 +81,7 @@ public class Main {
 							//menu per amministratore per bevande fredde
 							switch(sceltaBevandaAdmin) {
 							case 1:
-								System.out.println("1)AGGIUNGI QUANTITA BEVANDA\n2)CAMBIA PREZZO BEVANDA\n3)AGGIUNGI BEVANDA\n4)RIMUOVI BEVANDA\n5)STATISTICHE");
+								System.out.println("1)AGGIUNGI QUANTITA BEVANDA\n2)CAMBIA PREZZO BEVANDA\n3)AGGIUNGI BEVANDA\n4)RIMUOVI BEVANDA\n5)STATISTICHE\n6)MODIFICA PREZZO DI TUTTE LE BEVANDE");
 								int sceltaAdmin = scannerSceltaAdmin.nextInt();
 								switch(sceltaAdmin) {
 								case 1:
@@ -106,7 +106,7 @@ public class Main {
 									a1.Statistiche(bevande); //metodo per le statistiche
 									break;
 								case 6:
-									a1.PrezzoModificato(bevande);
+									a1.PrezzoModificato(bevande); 
 									break;
 								default:
 									System.out.println("NUMERO ERRATO");
@@ -116,7 +116,7 @@ public class Main {
 								
 								//menu per amministratore per bevande calde
 							case 2:
-								System.out.println("1)AGGIUNGI QUANTITA BEVANDA\n2)CAMBIA PREZZO BEVANDA\n3)AGGIUNGI BEVANDA\n4)RIMUOVI BEVANDA\n5)STATISTICHE");
+								System.out.println("1)AGGIUNGI QUANTITA BEVANDA\n2)CAMBIA PREZZO BEVANDA\n3)AGGIUNGI BEVANDA\n4)RIMUOVI BEVANDA\n5)STATISTICHE\n6)MODIFICA PREZZO DI TUTTE LE BEVANDE");
 								int sceltaAdmin2 = scannerSceltaAdmin.nextInt();
 								switch(sceltaAdmin2) {
 								case 1:
@@ -141,7 +141,7 @@ public class Main {
 									a1.StatisticheCalda(bevandeCalde); //metodo per le statistiche
 									break;
 								case 6:
-									a1.PrezziModificati(bevandeCalde);
+									a1.PrezziModificati(bevandeCalde); //metodo per modificare prezzi di tutte le bevande
 									break;
 								default:
 									System.out.println("NUMERO ERRATO");
