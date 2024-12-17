@@ -56,10 +56,10 @@ public class BevandeCalde {
 		
 	}
 	// Metodo per effettuare la vendita della bevanda
-	public boolean effettuaVendita(double credito) {
+	public boolean effettuaVendita(double credito, int qt) {
 		if (credito >= prezzo && quantita > 0) {
-			quantita--; // Riduce la quantità disponibile della bevanda
-			totaleIncassato += prezzo; // Aggiunge l'importo alla vendita totale
+			quantita = (quantita - qt);
+			totaleIncassato += (prezzo * qt); // Aggiunge l'importo alla vendita totale
 			return true; // Vendita riuscita
 		} else {
 			return false; // Vendita non riuscita
@@ -117,11 +117,10 @@ public class BevandeCalde {
 					for (BevandeCalde b : bevande) {
 						if (b.nome.equalsIgnoreCase("Caffe")) {
 						if(numeroBicchieri > 0) {
-							if (creditoInserito >= b.prezzo && b.quantita > 0) { //se creditoInserito è maggiore del prezzo e la quantita  = 0
+							if (creditoInserito >= b.prezzo && b.quantita >= quantitaDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantita  = 0
 									numeroBicchieri-= quantitaDaAcquistare;
-									b.setQuantita(b.getQuantita() - quantitaDaAcquistare);
-									b.effettuaVendita(creditoInserito);
-									resto = creditoInserito - b.prezzo;
+									b.effettuaVendita(creditoInserito, quantitaDaAcquistare);
+									resto = creditoInserito - (b.prezzo * quantitaDaAcquistare);
 										for(int i = 0; i < 5; i++) {
 											System.out.println("Quanto zucchero vuoi (0-5)");
 											int zucchero = scannerZucchero.nextInt();
@@ -135,7 +134,7 @@ public class BevandeCalde {
 										}
 										b.stampaDettagli(b);
 										System.out.println("Resto: " + resto + "€");
-										creditoInserito -= b.prezzo; //resto = credito inserito - prezzo bevanda utile per valutare ulteriori acquisti
+										creditoInserito -= (b.prezzo + quantitaDaAcquistare); //resto = credito inserito - prezzo bevanda utile per valutare ulteriori acquisti
 										System.out.print("\n" + b.quantita + " rimanenti...");
 										System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 										continua = scannerContinua.nextInt(); // legge un numero intero (variabile per
@@ -161,11 +160,10 @@ public class BevandeCalde {
 					for (BevandeCalde b : bevande) {
 						if (b.nome.equalsIgnoreCase("Cappuccino")) {
 							if(numeroBicchieri > 0) {
-								if (creditoInserito >= b.prezzo && b.quantita > 0) { ///se creditoInserito è maggiore del prezzo e la quantita  = 0
+								if (creditoInserito >= b.prezzo && b.quantita >= quantitaDaAcquistare) { ///se creditoInserito è maggiore del prezzo e la quantita  = 0
 									numeroBicchieri-= quantitaDaAcquistare;
-									b.setQuantita(b.getQuantita() - quantitaDaAcquistare);
-									b.effettuaVendita(creditoInserito);
-									resto = creditoInserito - b.prezzo;
+									b.effettuaVendita(creditoInserito, quantitaDaAcquistare);
+									resto = creditoInserito - (b.prezzo * quantitaDaAcquistare);
 									for(int i = 0; i < 5; i++) {
 										System.out.println("Quanto zucchero vuoi (0-5)");
 										int zucchero = scannerZucchero.nextInt();
@@ -179,7 +177,7 @@ public class BevandeCalde {
 									}
 									b.stampaDettagli(b);
 									System.out.println("Resto: " + resto + "€");
-									creditoInserito -= b.prezzo;
+									creditoInserito -= (b.prezzo * quantitaDaAcquistare);
 									System.out.print("\n" + b.quantita + " rimanenti...");//per stampa di controllo per quante quantita rimangono disponibili prima di rifornire
 									System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 									continua = scannerContinua.nextInt(); // legge un numero intero (variabile per
@@ -203,11 +201,10 @@ public class BevandeCalde {
 					for (BevandeCalde b : bevande) {
 						if (b.nome.equalsIgnoreCase("TeCaldo")) {
 							if(numeroBicchieri > 0) {
-								if (creditoInserito >= b.prezzo && b.quantita > 0) { ///se creditoInserito è maggiore del prezzo e la quantita  = 0
+								if (creditoInserito >= b.prezzo && b.quantita >= quantitaDaAcquistare) { ///se creditoInserito è maggiore del prezzo e la quantita  = 0
 									numeroBicchieri-= quantitaDaAcquistare;
-									b.setQuantita(b.getQuantita() - quantitaDaAcquistare);
-									b.effettuaVendita(creditoInserito);
-									resto = creditoInserito - b.prezzo;
+									b.effettuaVendita(creditoInserito, quantitaDaAcquistare);
+									resto = creditoInserito - (b.prezzo * quantitaDaAcquistare);
 									for(int i = 0; i < 5; i++) {
 										System.out.println("Quanto zucchero vuoi (0-5)"); //inserire da 0 a cinque zollette, meno rimanda all'else altrimenti se supera continua finché non mette massimo 5
 										int zucchero = scannerZucchero.nextInt();
@@ -222,7 +219,7 @@ public class BevandeCalde {
 									}
 									b.stampaDettagli(b);
 									System.out.println("Resto: " + resto + "€");
-									creditoInserito -= b.prezzo;
+									creditoInserito -= (b.prezzo * quantitaDaAcquistare);
 									System.out.print("\n" + b.quantita + " rimanenti...");
 									System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 									continua = scannerContinua.nextInt(); // legge un numero intero (variabile per
@@ -247,13 +244,12 @@ public class BevandeCalde {
 						for (BevandeCalde b : bevande) {
 							if (b.nome.equals(bevande.get(3).nome)) {
 								if(numeroBicchieri > 0) {
-									if (creditoInserito >= b.prezzo && b.quantita > 0) { // se creditoInserito è maggiore												// del prezzo e la quantità è
+									if (creditoInserito >= b.prezzo && b.quantita >= quantitaDaAcquistare) { // se creditoInserito è maggiore												// del prezzo e la quantità è
 																						// maggiore do 0 esegue il
 																						// blocco di codice
 										numeroBicchieri-= quantitaDaAcquistare;
-										b.setQuantita(b.getQuantita() - quantitaDaAcquistare);
-										b.effettuaVendita(creditoInserito);
-										resto = creditoInserito - b.prezzo;
+										b.effettuaVendita(creditoInserito, quantitaDaAcquistare);
+										resto = creditoInserito - (b.prezzo * quantitaDaAcquistare);
 										for(int i = 0; i < 5; i++) {
 											System.out.println("Quanto zucchero vuoi (0-5)");
 											int zucchero = scannerZucchero.nextInt();
@@ -266,7 +262,7 @@ public class BevandeCalde {
 											}
 										}
 										// resto = credito inserito - prezzo bevanda
-										creditoInserito -= b.prezzo; // sottrae a creditoInserito il prezzo della bevanda
+										creditoInserito -= (b.prezzo * quantitaDaAcquistare); // sottrae a creditoInserito il prezzo della bevanda
 																		// (utile nel caso successivamente si ricalcoli il
 																		// resto)
 										System.out.print("\n" + b.quantita + " rimenenti...");

@@ -48,6 +48,17 @@ public class BevandaFredda {
 	}
 	
 	//ALTRI METODI
+	
+	public boolean effettuaVendita(double credito, int qt) {
+		if (credito >= prezzo && quantita > 0) {
+			quantita = (quantita - qt);
+			totaleIncassato += (prezzo * qt); // Aggiunge l'importo alla vendita totale
+			return true; // Vendita riuscita
+		} else {
+			return false; // Vendita non riuscita
+		}
+	}
+	
 	public ArrayList <BevandaFredda> inserisciCredito(ArrayList <BevandaFredda> bevande) {
 		//VARIABILI		
 		double resto = 0;
@@ -79,45 +90,27 @@ public class BevandaFredda {
 					} else System.out.println("4. Non disponibile"); //altrimenti non disponibile
 					
 					codiceInserito = scannerCodice.nextInt(); //legge numero intero (variabile per il codice inserito)
+					
+					System.out.println("Quante bottiglie di acqua vuoi acquistare?");
+					qtDaAcquistare = scannerQuantita.nextInt();		
+					
 					switch(codiceInserito) {
 						case 1:
-							System.out.println("Quante bottiglie di acqua vuoi acquistare?");
-							qtDaAcquistare = scannerQuantita.nextInt();		
-							for(BevandaFredda b : bevande) {
-						           if (b.nome.equals("Acqua") && qtDaAcquistare == 1) {
-						        	   	if(creditoInserito >= b.prezzo && b.quantita > 0) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
+								for(BevandaFredda b : bevande) {
+						           if (b.nome.equals("Acqua")) {
+						        	   	if(creditoInserito >= b.prezzo && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
 							        	   	System.out.print("hai scelto l'acqua.");
 											System.out.print("\nBevanda erogata.");
-											resto = creditoInserito - b.prezzo; //resto = credito inserito - prezzo bevanda
-											creditoInserito -= b.prezzo; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
-											b.quantita--; //decremento quantita bevanda
+											b.effettuaVendita(creditoInserito, qtDaAcquistare);
+											resto = creditoInserito - (b.prezzo * qtDaAcquistare); //resto = credito inserito - prezzo bevanda
+											creditoInserito -= resto; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
 											System.out.print("\n" + b.quantita + " rimenenti...");
 											System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 											continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
-											bevandaOttenuta++; //conteggio bevande ottenute
+											bevandaOttenuta *= qtDaAcquistare; //conteggio bevande ottenute
 											System.out.println("Resto: " + resto + "€"); //stampa resto
-											b.totaleIncassato += b.prezzo; //totale incassato incrementato del prezzo della bevanda scelta
 											break;
 										}else {
-											System.out.print("Credito non sufficiente o bevanda non disponibile.");
-											resto = creditoInserito; //restituisce il credito inserito non utilizzato
-											continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
-										}
-							       	} else if(b.nome.equals("Acqua") && qtDaAcquistare != 1){		
-							       		if(creditoInserito >= (b.prezzo * qtDaAcquistare)  && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
-								       		System.out.print("hai scelto l'acqua.");
-											System.out.print("\n" + qtDaAcquistare + " Bevande erogate.");
-											resto = creditoInserito - (b.prezzo * qtDaAcquistare); //resto = credito inserito - prezzo bevanda * numero bevande acquistate
-											creditoInserito -= (b.prezzo * qtDaAcquistare); //sottrae a creditoInserito il prezzo della bevanda * numero bevande acquistate(utile nel caso successivamente si ricalcoli il resto)
-											b.quantita -= qtDaAcquistare; //decremento quantita bevanda
-											System.out.print("\n" + b.quantita + " rimenenti...");
-											System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
-											continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
-											bevandaOttenuta += qtDaAcquistare; //conteggio bevande ottenute
-											System.out.println("Resto: " + resto + "€"); //stampa resto
-											b.totaleIncassato += (b.prezzo * qtDaAcquistare); //totale incassato incrementato del prezzo della bevanda scelta
-											break;
-							       		} else {
 											System.out.print("Credito non sufficiente o bevanda non disponibile.");
 											resto = creditoInserito; //restituisce il credito inserito non utilizzato
 											continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
@@ -127,89 +120,46 @@ public class BevandaFredda {
 							break;
 							
 						case 2:
-							System.out.println("Quante bottiglie di acqua vuoi acquistare?");
-							qtDaAcquistare = scannerQuantita.nextInt();		
 							for(BevandaFredda b : bevande) {
-					            if (b.nome.equals("Cocacola") && qtDaAcquistare == 1) {
-									if(creditoInserito >= b.prezzo  && b.quantita > 0) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
+					            if (b.nome.equals("Cocacola")) {
+									if(creditoInserito >= b.prezzo  && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
 										System.out.print("hai scelto la Coca-Cola.");
 										System.out.print("\nBevanda erogata.");
-										resto = creditoInserito - b.prezzo; //resto = credito inserito - prezzo bevanda
-										creditoInserito -= b.prezzo; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
-										b.quantita--; //decremento quantita bevanda
+										b.effettuaVendita(creditoInserito, qtDaAcquistare);
+										resto = creditoInserito - (b.prezzo * qtDaAcquistare); //resto = credito inserito - prezzo bevanda
+										creditoInserito -= resto; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
 										System.out.print("\n" + b.quantita + " rimenenti...");
 										System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 										continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
-										bevandaOttenuta++; //conteggio bevande ottenute
+										bevandaOttenuta *= qtDaAcquistare; //conteggio bevande ottenute
 										System.out.println("Resto: " + resto + "€"); //stampa resto
-										b.totaleIncassato += b.prezzo; //totale incassato incrementato del prezzo della bevanda scelta
 										break;
 									} else {
 										System.out.print("Credito non sufficiente o bevanda non disponibile.");
 										resto = creditoInserito; //restituisce il credito inserito non utilizzato
+										System.out.println("resto: " + resto);
 										continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
 									}
-					            } else if(b.nome.equals("Cocacola") && qtDaAcquistare != 1){
-					            	if(creditoInserito >= (b.prezzo * qtDaAcquistare)  && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
-							       		System.out.print("hai scelto la Coca-Cola.");
-										System.out.print("\n" + qtDaAcquistare + " Bevande erogate.");
-										resto = creditoInserito - (b.prezzo * qtDaAcquistare); //resto = credito inserito - prezzo bevanda * numero bevande acquistate
-										creditoInserito -= (b.prezzo * qtDaAcquistare); //sottrae a creditoInserito il prezzo della bevanda  * numero bevande acquistate (utile nel caso successivamente si ricalcoli il resto)
-										b.quantita -= qtDaAcquistare; //decremento quantita bevanda
-										System.out.print("\n" + b.quantita + " rimenenti...");
-										System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
-										continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
-										bevandaOttenuta += qtDaAcquistare; //conteggio bevande ottenute
-										System.out.println("Resto: " + resto + "€"); //stampa resto
-										b.totaleIncassato += (b.prezzo * qtDaAcquistare); //totale incassato incrementato del prezzo della bevanda scelta
-										break;
-					            	} else {
-										System.out.print("Credito non sufficiente o bevanda non disponibile.");
-										resto = creditoInserito; //restituisce il credito inserito non utilizzato
-										continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
-									}
-						       	}
+					            }
 							}
 							break;
 							
-						case 3:
-							System.out.println("Quante bottiglie di acqua vuoi acquistare?");
-							qtDaAcquistare = scannerQuantita.nextInt();		
+						case 3:	
 							for(BevandaFredda b : bevande) {
-					            if (b.nome.equals("Te") && qtDaAcquistare == 1) {
-									if(creditoInserito >= b.prezzo  && b.quantita > 0) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
+					            if (b.nome.equals("Te")) {
+									if(creditoInserito >= b.prezzo  && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
 										System.out.print("hai scelto il Tè.");
 										System.out.print("\nBevanda erogata.");
-										resto = creditoInserito - b.prezzo; //resto = credito inserito - prezzo bevanda
-										creditoInserito -= b.prezzo; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
-										b.quantita--; //decremento quantita bevanda
+										b.effettuaVendita(creditoInserito, qtDaAcquistare);
+										resto = creditoInserito - (b.prezzo * qtDaAcquistare); //resto = credito inserito - prezzo bevanda
+										creditoInserito -= resto; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
 										System.out.print("\n" + b.quantita + " rimenenti...");
 										System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 										continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
-										bevandaOttenuta++; //conteggio bevande ottenute
+										bevandaOttenuta *= qtDaAcquistare; //conteggio bevande ottenute
 										System.out.println("Resto: " + resto + "€"); //stampa resto
-										b.totaleIncassato += b.prezzo; //totale incassato incrementato del prezzo della bevanda scelta
 										break;
 									} else {
-										System.out.print("Credito non sufficiente o bevanda non disponibile.");
-										resto = creditoInserito; //restituisce il credito inserito non utilizzato
-										continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
-									}
-					            } else if(b.nome.equals("Te") && qtDaAcquistare != 1){
-					            	if(creditoInserito >= (b.prezzo * qtDaAcquistare)  && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
-							       		System.out.print("hai scelto il Tè.");
-										System.out.print("\n" + qtDaAcquistare + " Bevande erogate.");
-										resto = creditoInserito - (b.prezzo * qtDaAcquistare); //resto = credito inserito - prezzo bevanda * numero bevande acquistate
-										creditoInserito -= (b.prezzo * qtDaAcquistare); //sottrae a creditoInserito il prezzo della bevanda  * numero bevande acquistate (utile nel caso successivamente si ricalcoli il resto)
-										b.quantita -= qtDaAcquistare; //decremento quantita bevanda
-										System.out.print("\n" + b.quantita + " rimenenti...");
-										System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
-										continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
-										bevandaOttenuta += qtDaAcquistare; //conteggio bevande ottenute
-										System.out.println("Resto: " + resto + "€"); //stampa resto
-										b.totaleIncassato += (b.prezzo * qtDaAcquistare); //totale incassato incrementato del prezzo della bevanda scelta
-										break;
-							       	} else {
 										System.out.print("Credito non sufficiente o bevanda non disponibile.");
 										resto = creditoInserito; //restituisce il credito inserito non utilizzato
 										continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
@@ -217,50 +167,28 @@ public class BevandaFredda {
 					            }
 							}
 							break;
-						case 4: 
-							System.out.println("Quante bottiglie di acqua vuoi acquistare?");
-							qtDaAcquistare = scannerQuantita.nextInt();		
+						case 4:	
 							if(bevande.size() > 3) {
 								for(BevandaFredda b : bevande) {
-						            if (b.nome.equals(bevande.get(3).nome) && qtDaAcquistare == 1) {
-										if(creditoInserito >= b.prezzo  && b.quantita > 0) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
+						            if (b.nome.equals(bevande.get(3).nome)) {
+										if(creditoInserito >= b.prezzo  && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
 											System.out.print("hai scelto il " + bevande.get(3).nome);
 											System.out.print("\nBevanda erogata.");
-											resto = creditoInserito - b.prezzo; //resto = credito inserito - prezzo bevanda
-											creditoInserito -= b.prezzo; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
-											b.quantita--; //decremento quantita bevanda
+											b.effettuaVendita(creditoInserito, qtDaAcquistare);
+											resto = creditoInserito - (b.prezzo * qtDaAcquistare); //resto = credito inserito - prezzo bevanda
+											creditoInserito -= resto; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
 											System.out.print("\n" + b.quantita + " rimenenti...");
 											System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 											continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
-											bevandaOttenuta++; //conteggio bevande ottenute
+											bevandaOttenuta *= qtDaAcquistare; //conteggio bevande ottenute
 											System.out.println("Resto: " + resto + "€"); //stampa resto
-											b.totaleIncassato += b.prezzo; //totale incassato incrementato del prezzo della bevanda scelta
 											break;
 										} else {
 											System.out.print("Credito non sufficiente o bevanda non disponibile.");
 											resto = creditoInserito; //restituisce il credito inserito non utilizzato
 											continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
 										}
-						            } else if(b.nome.equals(bevande.get(3).nome) && qtDaAcquistare != 1){
-						            	if(creditoInserito >= (b.prezzo * qtDaAcquistare)  && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
-								       		System.out.print("hai scelto: " + b.nome);
-											System.out.print("\n" + qtDaAcquistare + " Bevande erogate.");
-											resto = creditoInserito - (b.prezzo * qtDaAcquistare); //resto = credito inserito - prezzo bevanda  * numero bevande acquistate
-											creditoInserito -= (b.prezzo * qtDaAcquistare); //sottrae a creditoInserito il prezzo della bevanda  * numero bevande acquistate (utile nel caso successivamente si ricalcoli il resto)
-											b.quantita -= qtDaAcquistare; //decremento quantita bevanda
-											System.out.print("\n" + b.quantita + " rimenenti...");
-											System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
-											continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
-											bevandaOttenuta += qtDaAcquistare; //conteggio bevande ottenute
-											System.out.println("Resto: " + resto + "€"); //stampa resto
-											b.totaleIncassato += (b.prezzo * qtDaAcquistare); //totale incassato incrementato del prezzo della bevanda scelta
-											break;
-										} else {
-											System.out.print("Credito non sufficiente o bevanda non disponibile.");
-											resto = creditoInserito; //restituisce il credito inserito non utilizzato
-											continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
-										}
-							       	}
+						            }
 								}
 							}
 							break;
