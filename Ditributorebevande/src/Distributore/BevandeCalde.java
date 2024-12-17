@@ -52,6 +52,9 @@ public class BevandeCalde {
 	}
 
 	
+	public BevandeCalde() {
+		
+	}
 	// Metodo per effettuare la vendita della bevanda
 	public boolean effettuaVendita(double credito) {
 		if (credito >= prezzo && quantita > 0) {
