@@ -99,6 +99,13 @@ public class BevandeCalde {
 				System.out.print("Inserisci il numero corrispondente: ");
 				scelta = scannerCodice.nextInt(); //l
 				
+				System.out.println("\nQuante quantità vuoi acquistare? (max 10): ");
+				int quantitaDaAcquistare = scannerCodice.nextInt(); //nuova variabile con scanner 
+
+				if (quantitaDaAcquistare <= 0) {
+				    System.out.println("Quantità non valida.");
+				    continue;
+				}
 				// Selezione della bevanda in base alla scelta
 				switch (scelta) {
 				case 1:
@@ -108,14 +115,15 @@ public class BevandeCalde {
 						if (b.nome.equalsIgnoreCase("Caffe")) {
 						if(numeroBicchieri > 0) {
 							if (creditoInserito >= b.prezzo && b.quantita > 0) { //se creditoInserito è maggiore del prezzo e la quantita  = 0
-									numeroBicchieri--;
+									numeroBicchieri-= quantitaDaAcquistare;
+									b.setQuantita(b.getQuantita() - quantitaDaAcquistare);
 									b.effettuaVendita(creditoInserito);
 									resto = creditoInserito - b.prezzo;
 										for(int i = 0; i < 5; i++) {
 											System.out.println("Quanto zucchero vuoi (0-5)");
 											int zucchero = scannerZucchero.nextInt();
 											if(zucchero > 0 && zucchero <=5) {
-												System.out.println("Hai scelto il " + bevande.get(scelta - 1).getNome()  + " con " + zucchero + " zollette di zucchero");
+												System.out.println("Hai scelto: " + quantitaDaAcquistare  +"di" + bevande.get(scelta - 1).getNome()  + " con " + zucchero + " zollette di zucchero");
 												break;
 											} else if (zucchero == 0){
 												System.out.println("Non hai selezionato lo zucchero");
@@ -142,6 +150,7 @@ public class BevandeCalde {
 								
 							}
 						}
+						System.out.println ("Grazie per aver usato il nostro distributore. Buona giornata");
 					}
 					break;
 
@@ -150,14 +159,15 @@ public class BevandeCalde {
 						if (b.nome.equalsIgnoreCase("Cappuccino")) {
 							if(numeroBicchieri > 0) {
 								if (creditoInserito >= b.prezzo && b.quantita > 0) { ///se creditoInserito è maggiore del prezzo e la quantita  = 0
-									numeroBicchieri--;
+									numeroBicchieri-= quantitaDaAcquistare;
+									b.setQuantita(b.getQuantita() - quantitaDaAcquistare);
 									b.effettuaVendita(creditoInserito);
 									resto = creditoInserito - b.prezzo;
 									for(int i = 0; i < 5; i++) {
 										System.out.println("Quanto zucchero vuoi (0-5)");
 										int zucchero = scannerZucchero.nextInt();
 										if(zucchero > 0 && zucchero <=5) {
-											System.out.println("Hai scelto il " + bevande.get(scelta - 1).getNome()  + " con " + zucchero + " zollette di zucchero");
+											System.out.println("Hai scelto: " + quantitaDaAcquistare  +"di" + bevande.get(scelta - 1).getNome()  + " con " + zucchero + " zollette di zucchero");
 											break;
 										} else if (zucchero == 0){ //controllo sulla quantita di zucchero che vuole l'utente se non lo vuole sarà amaro, quindi impostato a 0
 											System.out.println("Non hai selezionato lo zucchero");
@@ -182,6 +192,7 @@ public class BevandeCalde {
 								System.out.println("Bicchieri esauriti. Scegli una bevanda fredda.");
 							}
 						}
+						System.out.println ("Grazie per aver usato il nostro distributore. Buona giornata");
 					}
 					break;
 
@@ -190,18 +201,21 @@ public class BevandeCalde {
 						if (b.nome.equalsIgnoreCase("TeCaldo")) {
 							if(numeroBicchieri > 0) {
 								if (creditoInserito >= b.prezzo && b.quantita > 0) { ///se creditoInserito è maggiore del prezzo e la quantita  = 0
+									numeroBicchieri-= quantitaDaAcquistare;
+									b.setQuantita(b.getQuantita() - quantitaDaAcquistare);
 									b.effettuaVendita(creditoInserito);
 									resto = creditoInserito - b.prezzo;
 									for(int i = 0; i < 5; i++) {
 										System.out.println("Quanto zucchero vuoi (0-5)"); //inserire da 0 a cinque zollette, meno rimanda all'else altrimenti se supera continua finché non mette massimo 5
 										int zucchero = scannerZucchero.nextInt();
 										if(zucchero > 0 && zucchero <=5) {
-											System.out.println("Hai scelto il " + bevande.get(scelta - 1).getNome()  + " con " + zucchero + " zollette di zucchero");
+											System.out.println("Hai scelto: " + quantitaDaAcquistare  +"di" + bevande.get(scelta - 1).getNome()  + " con " + zucchero + " zollette di zucchero"); //aggiunta della quantità acquistata dell'utente
 											break;
 										} else if (zucchero == 0){
 											System.out.println("Non hai selezionato lo zucchero");//avviso per l'utente che non è stato inserito alcuna zolletta
 											break;
 										}
+										
 									}
 									b.stampaDettagli(b);
 									System.out.println("Resto: " + resto + "€");
@@ -222,6 +236,7 @@ public class BevandeCalde {
 								System.out.println("Bicchieri esauriti. Scegli una bevanda fredda.");
 							}
 						}
+						System.out.println ("Grazie per aver usato il nostro distributore. Buona giornata");
 					}
 					break;
 				case 4:
@@ -232,7 +247,8 @@ public class BevandeCalde {
 									if (creditoInserito >= b.prezzo && b.quantita > 0) { // se creditoInserito è maggiore												// del prezzo e la quantità è
 																						// maggiore do 0 esegue il
 																						// blocco di codice
-										numeroBicchieri--;
+										numeroBicchieri-= quantitaDaAcquistare;
+										b.setQuantita(b.getQuantita() - quantitaDaAcquistare);
 										b.effettuaVendita(creditoInserito);
 										resto = creditoInserito - b.prezzo;
 										for(int i = 0; i < 5; i++) {
@@ -267,6 +283,7 @@ public class BevandeCalde {
 								}
 							}
 						}
+						System.out.println ("Grazie per aver usato il nostro distributore. Buona giornata");
 					}
 					break;
 				default:
