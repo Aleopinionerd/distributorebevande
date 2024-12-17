@@ -9,12 +9,12 @@ public class BevandeCalde {
 	private double prezzo;
 	private int quantita;
 	private double totaleIncassato;
-	private int numeroBicchieri = 10;
+	private int numeroBicchieri = 10; //numero di bicchieri per tutte le bevande
 
-	public double getTotaleIncassato() {
+	public double getTotaleIncassato() { //public per usare get e set 
 		return totaleIncassato;
 	}
-	
+	//GETTER E SETTER
 	public String getNome() {
 		return nome;
 
@@ -51,9 +51,10 @@ public class BevandeCalde {
 		this.totaleIncassato = 0;
 	}
 
+	
 	public BevandeCalde() {
+		
 	}
-
 	// Metodo per effettuare la vendita della bevanda
 	public boolean effettuaVendita(double credito) {
 		if (credito >= prezzo && quantita > 0) {
@@ -75,23 +76,23 @@ public class BevandeCalde {
 
 	// Metodo per inserire il credito e scegliere una bevanda
 	public ArrayList<BevandeCalde> inserisciCreditoCalda(ArrayList<BevandeCalde> bevande) {
-		Scanner scannerCodice = new Scanner(System.in);
-		Scanner scannerCredito = new Scanner(System.in);
-		Scanner scannerContinua = new Scanner(System.in);
-		Scanner scannerZucchero = new Scanner(System.in);
+		Scanner scannerCodice = new Scanner(System.in); //nuovo scanner
+		Scanner scannerCredito = new Scanner(System.in);//apertura nuovo scanner
+		Scanner scannerContinua = new Scanner(System.in);//apertura nuovo scanner
+		Scanner scannerZucchero = new Scanner(System.in); //apertura nuovo scanner
 
-		double creditoInserito;
+		double creditoInserito; //scanner e variabili per credito, codice inserito
 		int scelta = 0, continua = 0;
-		double resto = 0;
+		double resto = 0; //variabili inizializzate a 0
 
-		// Crea le bevande disponibili
+		//Inizio di cosa deve fare il distributore di bevande calde
 
-		System.out.println("\nInserire credito [1-10]:");
-		creditoInserito = scannerCredito.nextDouble();
-
-		if (creditoInserito >= 1 && creditoInserito <= 10) {
+		System.out.println("\nInserire credito [1-10]:"); //stampa
+		creditoInserito = scannerCredito.nextDouble(); //legge un numero intero più preciso rispetto a int 
+		// Metodo principale per la gestione del distributore
+		if (creditoInserito >= 1 && creditoInserito <= 10) { 
 			do {
-				System.out.println("\nSeleziona una bevanda: ");
+				System.out.println("\nSeleziona una bevanda: "); //stampa del menu informativo per l'utente
 				System.out.println("1. Caffè (€1)");
 				System.out.println("2. Cappuccino (€2)");
 				System.out.println("3. Tè Caldo (€1.50)");
@@ -99,15 +100,17 @@ public class BevandeCalde {
 					System.out.println("4. "+ bevande.get(3).nome + " (€" + bevande.get(3).prezzo + ")");
 				} else System.out.println("4. Non disponibile");
 				System.out.print("Inserisci il numero corrispondente: ");
-				scelta = scannerCodice.nextInt();
+				scelta = scannerCodice.nextInt(); //l
 				
 				// Selezione della bevanda in base alla scelta
 				switch (scelta) {
 				case 1:
+					//Bevande tra cui può scegliere sono caffe, cappuccino e te caldo, controllando e diminuendo il numero di bicchieri
+					//diminuendo la quantità di ogni bevanda volta per volta
 					for (BevandeCalde b : bevande) {
 						if (b.nome.equalsIgnoreCase("Caffe")) {
 						if(numeroBicchieri > 0) {
-							if (creditoInserito >= b.prezzo && b.quantita > 0) {
+							if (creditoInserito >= b.prezzo && b.quantita > 0) { //se creditoInserito è maggiore del prezzo e la quantita  = 0
 									numeroBicchieri--;
 									b.effettuaVendita(creditoInserito);
 									resto = creditoInserito - b.prezzo;
@@ -124,7 +127,7 @@ public class BevandeCalde {
 										}
 										b.stampaDettagli(b);
 										System.out.println("Resto: " + resto + "€");
-										creditoInserito -= b.prezzo;
+										creditoInserito -= b.prezzo; //resto = credito inserito - prezzo bevanda utile per valutare ulteriori acquisti
 										System.out.print("\n" + b.quantita + " rimanenti...");
 										System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 										continua = scannerContinua.nextInt(); // legge un numero intero (variabile per
@@ -133,11 +136,13 @@ public class BevandeCalde {
 										break;
 								} else 
 								System.out.println("Credito non sufficiente o bevanda non disponibile.");
-								resto = creditoInserito;
-								continua = 1;
+								resto = creditoInserito;  //restituisce il credito inserito non utilizzato
+								continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
+						
 								break;
 							} else {
-								System.out.println("Bicchieri esauriti");
+								System.out.println("Bicchieri esauriti. "); //bicchieri terminati serlezionare altra bevanda
+								
 							}
 						}
 					}
@@ -147,7 +152,7 @@ public class BevandeCalde {
 					for (BevandeCalde b : bevande) {
 						if (b.nome.equalsIgnoreCase("Cappuccino")) {
 							if(numeroBicchieri > 0) {
-								if (creditoInserito >= b.prezzo && b.quantita > 0) {
+								if (creditoInserito >= b.prezzo && b.quantita > 0) { ///se creditoInserito è maggiore del prezzo e la quantita  = 0
 									numeroBicchieri--;
 									b.effettuaVendita(creditoInserito);
 									resto = creditoInserito - b.prezzo;
@@ -157,7 +162,7 @@ public class BevandeCalde {
 										if(zucchero > 0 && zucchero <=5) {
 											System.out.println("Hai scelto il " + bevande.get(scelta - 1).getNome()  + " con " + zucchero + " zollette di zucchero");
 											break;
-										} else if (zucchero == 0){
+										} else if (zucchero == 0){ //controllo sulla quantita di zucchero che vuole l'utente se non lo vuole sarà amaro, quindi impostato a 0
 											System.out.println("Non hai selezionato lo zucchero");
 											break;
 										}
@@ -165,19 +170,19 @@ public class BevandeCalde {
 									b.stampaDettagli(b);
 									System.out.println("Resto: " + resto + "€");
 									creditoInserito -= b.prezzo;
-									System.out.print("\n" + b.quantita + " rimanenti...");
+									System.out.print("\n" + b.quantita + " rimanenti...");//per stampa di controllo per quante quantita rimangono disponibili prima di rifornire
 									System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 									continua = scannerContinua.nextInt(); // legge un numero intero (variabile per
 																			// continuare a scegliere le bevande)
 									System.out.println("Resto: " + resto + "€"); // stampa rest
 									break;
 								} else 	
-								System.out.println("Credito non sufficiente o bevanda non disponibile.");
+								System.out.println("Credito non sufficiente o bevanda non disponibile."); //stampa se credito non è sufficiente o la bevanda è esaurita
 								resto = creditoInserito;
 								continua = 1;
 								break;
 							} else {
-								System.out.println("Bicchieri esauriti");
+								System.out.println("Bicchieri esauriti. Scegli una bevanda fredda.");
 							}
 						}
 					}
@@ -187,17 +192,17 @@ public class BevandeCalde {
 					for (BevandeCalde b : bevande) {
 						if (b.nome.equalsIgnoreCase("TeCaldo")) {
 							if(numeroBicchieri > 0) {
-								if (creditoInserito >= b.prezzo && b.quantita > 0) {
+								if (creditoInserito >= b.prezzo && b.quantita > 0) { ///se creditoInserito è maggiore del prezzo e la quantita  = 0
 									b.effettuaVendita(creditoInserito);
 									resto = creditoInserito - b.prezzo;
 									for(int i = 0; i < 5; i++) {
-										System.out.println("Quanto zucchero vuoi (0-5)");
+										System.out.println("Quanto zucchero vuoi (0-5)"); //inserire da 0 a cinque zollette, meno rimanda all'else altrimenti se supera continua finché non mette massimo 5
 										int zucchero = scannerZucchero.nextInt();
 										if(zucchero > 0 && zucchero <=5) {
 											System.out.println("Hai scelto il " + bevande.get(scelta - 1).getNome()  + " con " + zucchero + " zollette di zucchero");
 											break;
 										} else if (zucchero == 0){
-											System.out.println("Non hai selezionato lo zucchero");
+											System.out.println("Non hai selezionato lo zucchero");//avviso per l'utente che non è stato inserito alcuna zolletta
 											break;
 										}
 									}
@@ -217,7 +222,7 @@ public class BevandeCalde {
 									break;
 								}
 							} else {
-								System.out.println("Bicchieri esauriti");
+								System.out.println("Bicchieri esauriti. Scegli una bevanda fredda.");
 							}
 						}
 					}
@@ -260,7 +265,7 @@ public class BevandeCalde {
 									continua = 1; // imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
 									} 
 								} else {
-									System.out.println("Bicchieri esauriti");
+									System.out.println("Bicchieri esauriti. Scegli una bevanda fredda.");//così non si piò comprare alcuna bevanda ma può scegliere una fredda
 									break;
 								}
 							}
@@ -268,7 +273,7 @@ public class BevandeCalde {
 					}
 					break;
 				default:
-					System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
+					System.out.print("\n\nINSERIRE 0 PER CONTINUARE: "); //stampa per far continuare all'utente l'utilizzo del distributore se ha resto e vuole continuare
 					continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
 					break;
 				}
