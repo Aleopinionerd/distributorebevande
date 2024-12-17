@@ -105,7 +105,9 @@ public class Main {
 								case 5:
 									a1.Statistiche(bevande); //metodo per le statistiche
 									break;
-									
+								case 6:
+									a1.PrezzoModificato(bevande);
+									break;
 								default:
 									System.out.println("NUMERO ERRATO");
 									break;
@@ -138,7 +140,9 @@ public class Main {
 								case 5:
 									a1.StatisticheCalda(bevandeCalde); //metodo per le statistiche
 									break;
-									
+								case 6:
+									a1.PrezziModificati(bevandeCalde);
+									break;
 								default:
 									System.out.println("NUMERO ERRATO");
 									break;

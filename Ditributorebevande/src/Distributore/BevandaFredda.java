@@ -10,6 +10,7 @@ public class BevandaFredda {
 	private int quantita = 3;
 	private int bevandaOttenuta;
 	private double totaleIncassato;
+	private boolean esaurita = false;
 
 	//COSTRUTTORI
 	public BevandaFredda() {
@@ -47,12 +48,20 @@ public class BevandaFredda {
 		return this.totaleIncassato;
 	}
 	
+	public boolean getEsaurita () {
+		return esaurita;
+		
+	}
+	
 	//ALTRI METODI
 	
 	public boolean effettuaVendita(double credito, int qt) {
 		if (credito >= prezzo && quantita > 0) {
 			quantita = (quantita - qt);
-			totaleIncassato += (prezzo * qt); // Aggiunge l'importo alla vendita totale
+			totaleIncassato += (prezzo * qt);
+			if (quantita == 0) {
+			esaurita = true;
+			}// Aggiunge l'importo alla vendita totale
 			return true; // Vendita riuscita
 		} else {
 			return false; // Vendita non riuscita
@@ -82,7 +91,7 @@ public class BevandaFredda {
 				System.out.print("Credito: " + creditoInserito);	
 				do {
 					System.out.println("\nSeleziona una bevanda: ");
-					System.out.println("1. Acqua (€1)");
+					System.out.println("1. Acqua: (€1)");
 					System.out.println("2. Coca-Cola (€2)");
 					System.out.println("3. Tè (€1.50)");
 					if(bevande.size() > 3) {

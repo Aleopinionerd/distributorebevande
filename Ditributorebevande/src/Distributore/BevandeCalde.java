@@ -10,6 +10,7 @@ public class BevandeCalde {
 	private int quantita;
 	private double totaleIncassato;
 	private int numeroBicchieri = 10; //numero di bicchieri per tutte le bevande
+	private boolean esaurita = false;
 
 	public double getTotaleIncassato() { //public per usare get e set 
 		return totaleIncassato;
@@ -42,6 +43,11 @@ public class BevandeCalde {
 	public void setPrezzo(double prezzo) {
 		this.prezzo = prezzo;
 	}
+	
+	public boolean getEsaurita () {
+		return esaurita;
+		
+	}
 
 	// Costruttore
 	public BevandeCalde(String nome, double prezzo, int quantita) {
@@ -59,6 +65,9 @@ public class BevandeCalde {
 	public boolean effettuaVendita(double credito, int qt) {
 		if (credito >= prezzo && quantita > 0) {
 			quantita = (quantita - qt);
+			if (quantita == 0) {
+				esaurita = true;
+			}
 			totaleIncassato += (prezzo * qt); // Aggiunge l'importo alla vendita totale
 			return true; // Vendita riuscita
 		} else {
