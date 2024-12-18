@@ -149,7 +149,7 @@ public class BevandeCalde {
 										}
 										b.stampaDettagli(b);
 										System.out.println("Resto: " + resto + "€");
-										creditoInserito -= (b.prezzo + quantitaDaAcquistare); //resto = credito inserito - prezzo bevanda utile per valutare ulteriori acquisti
+										creditoInserito = resto; //resto = credito inserito - prezzo bevanda utile per valutare ulteriori acquisti
 										System.out.print("\n" + b.quantita + " rimanenti...");
 										System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 										continua = scannerContinua.nextInt(); // legge un numero intero (variabile per
@@ -191,7 +191,7 @@ public class BevandeCalde {
 									}
 									b.stampaDettagli(b);
 									System.out.println("Resto: " + resto + "€");
-									creditoInserito -= (b.prezzo * quantitaDaAcquistare);
+									creditoInserito = resto;
 									System.out.print("\n" + b.quantita + " rimanenti...");//per stampa di controllo per quante quantita rimangono disponibili prima di rifornire
 									System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 									continua = scannerContinua.nextInt(); // legge un numero intero (variabile per
@@ -232,7 +232,7 @@ public class BevandeCalde {
 									}
 									b.stampaDettagli(b);
 									System.out.println("Resto: " + resto + "€");
-									creditoInserito -= (b.prezzo * quantitaDaAcquistare);
+									creditoInserito = resto;
 									System.out.print("\n" + b.quantita + " rimanenti...");
 									System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 									continua = scannerContinua.nextInt(); // legge un numero intero (variabile per
@@ -274,7 +274,7 @@ public class BevandeCalde {
 											}
 										}
 										// resto = credito inserito - prezzo bevanda
-										creditoInserito -= (b.prezzo * quantitaDaAcquistare); // sottrae a creditoInserito il prezzo della bevanda
+										creditoInserito = resto; // sottrae a creditoInserito il prezzo della bevanda
 																		// (utile nel caso successivamente si ricalcoli il
 																		// resto)
 										System.out.print("\n" + b.quantita + " rimenenti...");
@@ -301,7 +301,7 @@ public class BevandeCalde {
 					continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
 					break;
 				}
-				System.out.println ("Grazie per aver usato il nostro distributore. Buona giornata");
+				System.out.println ("\nGrazie per aver usato il nostro distributore. Buona giornata");
 			} while (continua == 0); // Ripete finché l'utente vuole continuare
 		}else {
 			resto = creditoInserito; //restituisce il credito inserito non utilizzato

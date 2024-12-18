@@ -25,7 +25,6 @@ public class Main {
 		
 		boolean admin = false;
 		int continua = 1;
-		double resto = 0;
 		
 		BevandaFredda bevanda1 = new BevandaFredda(); //oggetto bevanda1 instanza di BevandaFredda
 		BevandeCalde bevanda2 = new BevandeCalde(); //oggetto bevanda2 instanza di BevandeCalde
@@ -34,8 +33,6 @@ public class Main {
 		//creazione arraylist per le bevande
 		ArrayList <BevandaFredda> bevande = new ArrayList <BevandaFredda>();
 		ArrayList <BevandeCalde> bevandeCalde = new ArrayList <BevandeCalde>();
-		ArrayList <BevandaFredda> bevandeAggiunte = new ArrayList <BevandaFredda>();
-		ArrayList <BevandeCalde> bevandeCaldeAggiunte = new ArrayList <BevandeCalde>();
 		
 		//creazione bevande fredde di base
 		BevandaFredda acqua = new BevandaFredda("Acqua", 1.0, 3);
@@ -63,12 +60,12 @@ public class Main {
 					int sceltaBevanda = scannerBevanda.nextInt();
 					switch(sceltaBevanda) {
 					case 1:
-						if(bevandeCaldeAggiunte.size() != 0) {bevandeCalde = bevandeCaldeAggiunte;}
+						
 							bevandeCalde = bevanda2.inserisciCreditoCalda(bevandeCalde); //richiama il metodo inserisciCreditoCalda()
 						break;
 						
 					case 2:
-						if(bevandeAggiunte.size() != 0) {bevande = bevandeAggiunte;}
+						
 							bevande = bevanda1.inserisciCredito(bevande); //richiama il metodo inserisciCredito()
 						break;
 						
@@ -85,15 +82,15 @@ public class Main {
 								int sceltaAdmin = scannerSceltaAdmin.nextInt();
 								switch(sceltaAdmin) {
 								case 1:
-									bevandeAggiunte = a1.quantitaBevanda(bevande); //richiama metodo per aggiungere una quantità alle bevande esistenti
+									bevande = a1.quantitaBevanda(bevande); //richiama metodo per aggiungere una quantità alle bevande esistenti
 									break;
 									
 								case 2:
-									bevandeAggiunte = a1.prezzoBevanda(bevande); //richiama metodo per modificare il prezzo alle bevande esistenti
+									bevande = a1.prezzoBevanda(bevande); //richiama metodo per modificare il prezzo alle bevande esistenti
 									break;
 									
 								case 3:
-									bevandeAggiunte = a1.aggiungiBevanda(bevande); //richiama metodo per aggiungere una bevanda
+									bevande = a1.aggiungiBevanda(bevande); //richiama metodo per aggiungere una bevanda
 									break;
 									
 								case 4:
@@ -120,15 +117,15 @@ public class Main {
 								int sceltaAdmin2 = scannerSceltaAdmin.nextInt();
 								switch(sceltaAdmin2) {
 								case 1:
-									bevandeCaldeAggiunte = a1.quantitaBevandaCalda(bevandeCalde); //richiama metodo per aggiungere una quantità alle bevande esistenti
+									bevandeCalde = a1.quantitaBevandaCalda(bevandeCalde); //richiama metodo per aggiungere una quantità alle bevande esistenti
 									break;
 									
 								case 2:
-									bevandeCaldeAggiunte = a1.prezzoBevandaCalda(bevandeCalde); //richiama metodo per modificare il prezzo alle bevande esistenti
+									bevandeCalde = a1.prezzoBevandaCalda(bevandeCalde); //richiama metodo per modificare il prezzo alle bevande esistenti
 									break;
 									
 								case 3:
-									bevandeCaldeAggiunte = a1.aggiungiBevandaCalda(bevandeCalde); //richiama metodo per aggiungere una bevanda
+									bevandeCalde = a1.aggiungiBevandaCalda(bevandeCalde); //richiama metodo per aggiungere una bevanda
 									break;
 									
 								case 4:

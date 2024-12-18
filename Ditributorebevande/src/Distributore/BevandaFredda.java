@@ -117,7 +117,7 @@ public class BevandaFredda {
 											System.out.print("\nBevanda erogata.");
 											b.effettuaVendita(creditoInserito, qtDaAcquistare);
 											resto = creditoInserito - (b.prezzo * qtDaAcquistare); //resto = credito inserito - prezzo bevanda
-											creditoInserito -= resto; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
+											creditoInserito = resto; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
 											System.out.print("\n" + b.quantita + " rimenenti...");
 											System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 											continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
@@ -135,12 +135,12 @@ public class BevandaFredda {
 						case 2:
 							for(BevandaFredda b : bevande) {
 					            if (b.nome.equals("Cocacola")) {
-									if(creditoInserito >= (b.prezzo * qtDaAcquistare)  && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
+									if(creditoInserito >= (b.prezzo * qtDaAcquistare) && b.quantita >= qtDaAcquistare) { //se creditoInserito è maggiore del prezzo e la quantità è maggiore do 0 esegue il blocco di codice
 										System.out.print("hai scelto la Coca-Cola.");
 										System.out.print("\nBevanda erogata.");
 										b.effettuaVendita(creditoInserito, qtDaAcquistare);
 										resto = creditoInserito - (b.prezzo * qtDaAcquistare); //resto = credito inserito - prezzo bevanda
-										creditoInserito -= resto; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
+										creditoInserito = resto; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
 										System.out.print("\n" + b.quantita + " rimenenti...");
 										System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 										continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
@@ -150,7 +150,6 @@ public class BevandaFredda {
 									} else {
 										System.out.print("Credito non sufficiente o bevanda non disponibile.");
 										resto = creditoInserito; //restituisce il credito inserito non utilizzato
-										System.out.println("resto: " + resto);
 										continua = 1; //imposta continua a 1 per non rientrare nel ciclo in cui verra chiesto di inserire il codice
 									}
 					            }
@@ -165,7 +164,7 @@ public class BevandaFredda {
 										System.out.print("\nBevanda erogata.");
 										b.effettuaVendita(creditoInserito, qtDaAcquistare);
 										resto = creditoInserito - (b.prezzo * qtDaAcquistare); //resto = credito inserito - prezzo bevanda
-										creditoInserito -= resto; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
+										creditoInserito = resto; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
 										System.out.print("\n" + b.quantita + " rimenenti...");
 										System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 										continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
@@ -189,7 +188,7 @@ public class BevandaFredda {
 											System.out.print("\nBevanda erogata.");
 											b.effettuaVendita(creditoInserito, qtDaAcquistare);
 											resto = creditoInserito - (b.prezzo * qtDaAcquistare); //resto = credito inserito - prezzo bevanda
-											creditoInserito -= resto; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
+											creditoInserito = resto; //sottrae a creditoInserito il prezzo della bevanda (utile nel caso successivamente si ricalcoli il resto)
 											System.out.print("\n" + b.quantita + " rimenenti...");
 											System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 											continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
@@ -213,7 +212,7 @@ public class BevandaFredda {
 							System.out.print("\n\nINSERIRE 0 PER CONTINUARE: ");
 							continua = scannerContinua.nextInt(); //legge un numero intero (variabile per continuare a scegliere le bevande)
 					}
-					System.out.println ("Grazie per aver usato il nostro distributore. Buona giornata");
+					System.out.println ("\nGrazie per aver usato il nostro distributore. Buona giornata");
 				} while (continua == 0); //ripete finche "continua" è uguale a 0
 			} else {
 				resto = creditoInserito; //restituisce il credito inserito non utilizzato

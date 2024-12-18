@@ -82,6 +82,7 @@ public class Amministratore {
 			if (bevande.size() > 3) {
 				for (int i = 0; i < bevande.size(); i++) {
 					if (bevande.get(3).getNome().equals(bevande.get(i).getNome())) {
+						System.out.print("Quante bottiglie di " + bevande.get(3).getNome() + " vuoi aggiungere? ");
 						int qt = scannerQt.nextInt(); // legge numero intero per quantita da aggiungere
 						qt += bevande.get(3).getQuantita(); // somma la quantita inserita a quella esistente
 						bevande.get(3).setQuantita(qt); // imposta la quanita aggiornata
@@ -218,15 +219,14 @@ public class Amministratore {
 	public void Statistiche(ArrayList<BevandaFredda> bevande) {
 		ArrayList<BevandaFredda> BevandaEsaurita = new ArrayList<BevandaFredda>();
 		for (BevandaFredda b : bevande) {
-			System.out.print("\n[Bevanda: " + b.getNome() + ", prezzo: " + b.getPrezzo() + ", quantita: "
-					+ b.getQuantita() + "]"); // stampa statistiche bevande fredde
-			System.out.print("\tTotale incassato: " + b.getTotaleIncassato() + "€"); // stampa totale incassato dalle bevande
-			System.out.println("\tTotale bevande ottenute: " + b.getBevandaOttenuta()); // stampa numero totale bevande ottenute
+			System.out.print("\n[Bevanda: " + b.getNome() + ", prezzo: " + b.getPrezzo() + ", quantita: " + b.getQuantita() + "]"); // stampa statistiche bevande fredde
+			System.out.print("\t[Totale incassato: " + b.getTotaleIncassato() + "€]"); // stampa totale incassato dalle bevande
+			System.out.println("\t[Totale bevande ottenute: " + b.getBevandaOttenuta() + "]"); // stampa numero totale bevande ottenute
 		}
 			BevandaEsaurita = BevandaFredda(bevande);
 			for (int i = 0; i < BevandaEsaurita.size(); i++) {
 
-				System.out.println("Bevande esaurite: " + BevandaEsaurita.get(i).getNome()); // calde
+				System.out.println("\n[Bevande esaurite: " + BevandaEsaurita.get(i).getNome() + "]"); // calde
 			}	// bevande fredde
 
 		}
@@ -297,6 +297,7 @@ public class Amministratore {
 			if (bevande.size() > 3) {
 				for (int i = 0; i < bevande.size(); i++) {
 					if (bevande.get(3).getNome().equals(bevande.get(i).getNome())) {
+						System.out.print("Quante bottiglie di " + bevande.get(3).getNome() + " vuoi aggiungere? ");
 						int qt = scannerQt.nextInt(); // legge numero intero per quantita da aggiungere
 						qt += bevande.get(3).getQuantita(); // somma la quantita inserita a quella esistente
 						bevande.get(3).setQuantita(qt); // imposta quantita aggiornata
@@ -437,13 +438,13 @@ public class Amministratore {
 		for (BevandeCalde b : bevande) {
 			System.out.print("\n[Bevanda: " + b.getNome() + ", prezzo: " + b.getPrezzo() + ", quantita: "
 					+ b.getQuantita() + "]"); // stampa statistiche bevande calde
-			System.out.print("\tTotale incassato: " + b.getTotaleIncassato() + "€"); // stampa incasso totale bevande
-			System.out.println("\tTotale bevande ottenute: " + b.getBevandaOttenuta()); // stampa numero totale bevande ottenute
+			System.out.print("\t[Totale incassato: " + b.getTotaleIncassato() + "€]"); // stampa incasso totale bevande
+			System.out.println("\t[Totale bevande ottenute: " + b.getBevandaOttenuta() + "]"); // stampa numero totale bevande ottenute
 		}
 		BevandeEsaurite = BevandeEsaurite(bevande);
 		for (int i = 0; i < BevandeEsaurite.size(); i++) {
 
-			System.out.println("Bevande esaurite: " + BevandeEsaurite.get(i).getNome()); // calde
+			System.out.println("\n[Bevande esaurite: " + BevandeEsaurite.get(i).getNome() + "]"); // calde
 		}
 
 	}
@@ -452,7 +453,7 @@ public class Amministratore {
 		ArrayList<BevandeCalde> BevandeEsaurite = new ArrayList<BevandeCalde>();
 		for (BevandeCalde b : bevande) {
 			if (b.getEsaurita() == true) {
-				BevandeEsaurite.add(b);
+				BevandeEsaurite.add(b); //aggiunge la bevanda alla lista di bevande esaurite
 			}
 		}
 		return BevandeEsaurite;
